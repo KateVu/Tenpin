@@ -1,0 +1,72 @@
+
+.App {
+  display: flex;
+  font-family: 'RobotoMono', cursive;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0px;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+
+}
+
+.lanes {
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+}
+
+.lane {
+  width: 90%;
+  margin: 10px;
+}
+
+.laneContent {
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  flex: 4;
+}
+
+.gameContent {
+  display: flex;
+  flex-direction: column;
+  color:red ;
+}
+
+.rules {
+  font-family: 'RobotoMono';
+
+}
+
+
+.Title {
+  font-family: 'RobotoMono', cursive;
+  text-align: center;
+  font-size: 60px;
+  color: red;
+  margin: 20px;
+  margin-bottom: 0px;
+}
+
+.Intro {
+  text-align: center;
+  margin: 20px;
+}
+
+
+.titleLane {
+  font-family: 'RobotoMono';
+  text-align: center;
+  font-size: 5em;
+  color: red;
+  margin: 20px;
+  margin-bottom: 0px;
+}
