@@ -1,7 +1,6 @@
 
 import isStrike from '../utils/isStrike';
 import isSpare from '../utils/isSpare';
-import { act } from 'react-dom/test-utils';
 
 
 const initialState = {
@@ -154,16 +153,17 @@ const reducer = (state = initialState, action) => {
         // console.log(newLane.players[newLane.currentPlayer].frames);
       }
 
-      //UPDATE PREVIOUS STRIKE
+      // //UPDATE PREVIOUS STRIKE
       if (currentFrame > 0) {
         if (currentFrame === 1) {
-          if (currentPlayer.strike[0].isStrike === true) {
+          if (currentPlayer.strike[0].isStrike) {
             currentPlayer.strike[0].nextScores.push(action.payload);
             if (currentPlayer.strike[0].nextScores.length === 2) {
               currentPlayer.cumulativeScores[0] = 10 + currentPlayer.strike[0].nextScores[0] + currentPlayer.strike[0].nextScores[1];
             }
           }
         } else {
+
           if (currentPlayer.strike[currentFrame - 1].isStrike === true) {
             if (currentPlayer.strike[currentFrame - 1].nextScores.length < 2) {
               currentPlayer.strike[currentFrame - 1].nextScores.push(action.payload);
@@ -172,6 +172,7 @@ const reducer = (state = initialState, action) => {
               }
             }
           }
+
           if (currentPlayer.strike[currentFrame - 2].isStrike === true) {
             if (currentPlayer.strike[currentFrame - 2].nextScores.length < 2) {
               currentPlayer.strike[currentFrame - 2].nextScores.push(action.payload);
@@ -180,17 +181,18 @@ const reducer = (state = initialState, action) => {
               }
             }
           }
+
         }
       }
 
       //UPDATE PREVIOUS SQUARE
       if (currentFrame > 0) {
-        if (currentPlayer.square[currentFrame - 1].isSquare === true) {
+        console.log("CURRENT FRAME:");
+        console.log(currentFrame);
+
+        if (currentPlayer.square[currentFrame - 1].isSquare) {
           if (currentPlayer.square[currentFrame - 1].nextScores.length < 1) {
-            currentPlayer.square[currentFrame - 1].nextScores.push(action.payload);
-            if (currentPlayer.square[currentFrame - 1].nextScores.length === 1) {
-              currentPlayer.cumulativeScores[currentFrame - 1] = 10 + currentPlayer.square[currentFrame - 1].nextScores[0];
-            }
+              currentPlayer.cumulativeScores[currentFrame - 1] = 10 + action.payload;
           }
         }
       }
@@ -211,6 +213,10 @@ const reducer = (state = initialState, action) => {
         } else {
           //update strike array information
           currentPlayer.strike.push({ isStrike: true, nextScores: [] });
+          currentPlayer.square.push({ isSquare: false });
+          console.log("UPDATE STRIKE:");
+          console.log(currentPlayer.strike);
+  
           //add -1 to cumulative scores
           if (typeof currentPlayer.cumulativeScores[currentFrame] === 'undefined') {
             //first time add cumulative scores
@@ -231,12 +237,16 @@ const reducer = (state = initialState, action) => {
             } else {
             //update square array information
             currentPlayer.square.push({ isSquare: true, nextScores: [] });
+            console.log("UPDATE SQUARE:");
+            console.log(currentPlayer.square);  
             //update cumulativeScores
             currentPlayer.cumulativeScores[currentFrame] = -1;
             }
           } else {
             //update square array information
             currentPlayer.square.push({ isSquare: false });
+            console.log("UPDATE SQUARE:");
+            console.log(currentPlayer.square);  
             //update cumulativeScores
             currentPlayer.cumulativeScores[currentFrame] = currentPlayer.cumulativeScores[currentFrame] + action.payload;
 

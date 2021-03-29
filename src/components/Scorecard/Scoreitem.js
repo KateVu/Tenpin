@@ -20,9 +20,10 @@ class Scoreitem extends Component {
     const {cumulativeScores, playerName} = this.props
     let scores = [...cumulativeScores];
     let totalScore = '';
+    let filterScores = [];
     if (scores != null) {
-      let bonus = scores.filter(x => x==-1).length;
-      totalScore = scores.reduce((a, b) => a + b, 0) + bonus;
+      filterScores = scores.filter(x => x>-1);
+      totalScore = filterScores.reduce((a, b) => a + b, 0);
     }
 
     return ([
