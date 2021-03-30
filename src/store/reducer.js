@@ -4,7 +4,7 @@ import isSpare from '../utils/isSpare';
 
 
 const initialState = {
-  isManager: false,
+  isManager: true,
   currentLane: 0,
   lanes: [
     {
@@ -92,8 +92,30 @@ const initialState = {
     {
       laneid: "2",
       laneTitle: "Lane 2",
-      started: false,
-      players: [],
+      started: true,
+      players: [
+        {
+          playerName: "Player 1",
+          frames: [],
+          strike: [],
+          square: [],
+          cumulativeScores: [],
+          currentRoll: 1,
+          maxRolls: 2,
+          lastScore: 0,
+        },
+        {
+          playerName: "Player 2",
+          frames: [],
+          strike: [],
+          square: [],
+          cumulativeScores: [],
+          maxRolls: 2,
+          currentRoll: 1,
+          lastScore: 0,
+        },
+
+      ],
       currentPlayer: 0,
       currentFrame: 0,
       winner: "",
@@ -129,28 +151,12 @@ const reducer = (state = initialState, action) => {
       if (typeof newLane.players[newLane.currentPlayer].frames[currentFrame] === 'undefined') {
         // console.log('UPDATE with not currentframe:');
         let newScore = [[action.payload]];
-        // console.log('newValue:');
-        // console.log(newScore);
 
         let frames = newLane.players[newLane.currentPlayer].frames;
-        // console.log('currentValue:');
-        // console.log(frames);
-
         frames.push(newScore);
-
-        // console.log('UPDATE FRAMES:');
-        // console.log(frames);
-        // console.log('Current frame:');
-        // console.log(currentFrame);
-        // console.log('Type of:');
-        // console.log(typeof newLane.players[newLane.currentPlayer].frames[currentFrame]);
-
       } else {
-        // console.log('UPDATE with existing currentframe:');
 
         newLane.players[newLane.currentPlayer].frames[currentFrame].push(action.payload);
-        // console.log('UPDATE FRAMES:');
-        // console.log(newLane.players[newLane.currentPlayer].frames);
       }
 
       // //UPDATE PREVIOUS STRIKE
@@ -192,7 +198,7 @@ const reducer = (state = initialState, action) => {
 
         if (currentPlayer.square[currentFrame - 1].isSquare) {
           if (currentPlayer.square[currentFrame - 1].nextScores.length < 1) {
-              currentPlayer.cumulativeScores[currentFrame - 1] = 10 + action.payload;
+            currentPlayer.cumulativeScores[currentFrame - 1] = 10 + action.payload;
           }
         }
       }
@@ -216,7 +222,7 @@ const reducer = (state = initialState, action) => {
           currentPlayer.square.push({ isSquare: false });
           console.log("UPDATE STRIKE:");
           console.log(currentPlayer.strike);
-  
+
           //add -1 to cumulative scores
           if (typeof currentPlayer.cumulativeScores[currentFrame] === 'undefined') {
             //first time add cumulative scores
@@ -235,18 +241,18 @@ const reducer = (state = initialState, action) => {
               currentPlayer.maxRolls = 3;
               currentPlayer.cumulativeScores[currentFrame] = currentPlayer.cumulativeScores[currentFrame] + action.payload;
             } else {
-            //update square array information
-            currentPlayer.square.push({ isSquare: true, nextScores: [] });
-            console.log("UPDATE SQUARE:");
-            console.log(currentPlayer.square);  
-            //update cumulativeScores
-            currentPlayer.cumulativeScores[currentFrame] = -1;
+              //update square array information
+              currentPlayer.square.push({ isSquare: true, nextScores: [] });
+              console.log("UPDATE SQUARE:");
+              console.log(currentPlayer.square);
+              //update cumulativeScores
+              currentPlayer.cumulativeScores[currentFrame] = -1;
             }
           } else {
             //update square array information
             currentPlayer.square.push({ isSquare: false });
             console.log("UPDATE SQUARE:");
-            console.log(currentPlayer.square);  
+            console.log(currentPlayer.square);
             //update cumulativeScores
             currentPlayer.cumulativeScores[currentFrame] = currentPlayer.cumulativeScores[currentFrame] + action.payload;
 
@@ -310,14 +316,100 @@ const reducer = (state = initialState, action) => {
         lanes: newLanes,
       }
     case 'ENTERLANE':
-
       return {
         ...state,
         currentLane: action.payload,
       }
 
-  }
+    case 'RESTART':
+      let newLanes1 = [...state.lanes];
+      let newLane1 = newLanes1[state.currentLane];
+      let players = newLane1.players;
+
+      let restartPlayers = players.map((player) => {
+        return {
+          playerName: player.playerName,
+          frames: [],
+          strike: [],
+          square: [],
+          cumulativeScores: [],
+          currentRoll: 1,
+          maxRolls: 2,
+          lastScore: 0,
+        }
+      })
+
+      newLane1.players = restartPlayers;
+      newLane1.ended = false;
+
+      return {
+        ...state,
+        lanes: newLanes1,
+      }
+
+    case 'RESET':
+      // newLanes = [...state.lanes];
+      let newLanes2 = [...state.lanes];
+      let newLane2 = newLanes2[state.currentLane];
+      newLane2.players = [];
+      newLane2.started = false;
+      newLane2.ended = false;
+
+      return {
+        ...state,
+        lanes: newLanes2,
+      }
+
+
+      case 'START':
+        // newLanes = [...state.lanes];
+        let newLanesStart = [...state.lanes];
+        let newLaneStart = newLanesStart[state.currentLane];
+        newLaneStart.started = true;
+        newLaneStart.ended = false;
   
+        return {
+          ...state,
+          lanes: newLanesStart,
+        }
+  
+    case 'ADDPLAYER':
+      console.log("ADDPLAYER CALLED");
+      console.log(action.payload)
+
+      let newLanesAddPlayer = [...state.lanes];
+      let newLaneAddPlayer = newLanesAddPlayer[state.currentLane];
+      console.log('NEW LANE');
+      console.log(newLaneAddPlayer);
+      newLaneAddPlayer.players.push(
+        {
+          playerName: action.payload,
+          frames: [],
+          strike: [],
+          square: [],
+          cumulativeScores: [],
+          currentRoll: 1,
+          maxRolls: 2,
+          lastScore: 0,
+        });
+        console.log('UPDATED');
+        console.log(newLaneAddPlayer);
+  
+      return {
+        ...state,
+        lanes: newLanesAddPlayer
+      }
+
+
+    case 'SWITCHROLE':
+      return {
+        ...state,
+        isManager: !state.isManager,
+      }
+
+
+  }
+
   return state
 }
 

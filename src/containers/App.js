@@ -1,29 +1,19 @@
 import './App.css';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Role from '../components/Role/Role.js';
 import Game from './Game/Game';
+import GameManager from './GameManager/GameManager';
 
 
 class App extends Component {
 
-  state = {
-    isManager: false,
+  switchRoleHandler = () => {
+    this.props.switchRole();
   }
 
-  switchRollHandler = () => {
-    let newValue = !this.state.isManager;
-    this.setState({
-      isManager: newValue
-    })
-  }
-
-  clickLaneHandler = (laneid) => {
-    this.setState({
-      currentLane: laneid
-    })
-  }
-
+  
   render() {
     return (
       <div className="App">
@@ -36,11 +26,13 @@ class App extends Component {
         </div>
 
         <div>
-          <Role isManager={this.state.isManager} />
-          <button onClick={this.switchRollHandler}>Switch Role</button>
+          <Role isManager={this.props.isManager} />
+          <button onClick={this.switchRoleHandler}>Switch Role</button>
         </div>
-
-        <Game/>
+        {
+          this.props.isManager? <GameManager/> : <Game/>
+        }
+        
 
       </div>
     );
@@ -48,4 +40,19 @@ class App extends Component {
 
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+      isManager: state.isManager,
+      currentLane: state.currentLane,
+      lanes: state.lanes,    
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    switchRole: () => dispatch({type: 'SWITCHROLE'})
+  };
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

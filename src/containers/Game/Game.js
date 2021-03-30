@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import '../App.css';
 
-import Gamecontroler from '../../components/Lane/GameController';
+import Gamecontroler from '../../components/GameController/GameController';
 import Introduce from '../../components/introduce';
 
 class Game extends Component { 
@@ -25,7 +25,7 @@ class Game extends Component {
                 {lanes}
                 <div className="laneContent">
                     <Introduce />
-                    <Gamecontroler clasName="gameContain" lane={this.props.lanes[0]} />
+                    <Gamecontroler className="gameContain" />
                 </div>
             </div>
         )

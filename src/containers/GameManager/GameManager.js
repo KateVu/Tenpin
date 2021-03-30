@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import '../App.css';
 
-import Gamecontroler from '../../components/Lane/GameController';
+import Gamecontroler from '../../components/GameController/GameController';
 import Introduce from '../../components/introduce';
+import GameControllerManager from "../../components/GameControllerManager/GameControllerManager";
 
 class GameManager extends Component { 
     handleClick = (index) => {
@@ -25,7 +26,7 @@ class GameManager extends Component {
                 {lanes}
                 <div className="laneContent">
                     <div>This is UI for Manager</div>
-                    <Gamecontroler clasName="gameContain" lane={this.props.lanes[0]} />
+                    <GameControllerManager className="gameContain"/>
                 </div>
             </div>
         )
