@@ -428,7 +428,10 @@ const reducer = (state = initialState, action) => {
 
       newLane1.players = restartPlayers;
       newLane1.ended = false;
-
+      newLane1.currentPlayer = 0;
+      newLane1.currentFrame = 0;
+      newLane1.winner = "";
+      
       return {
         ...state,
         lanes: newLanes1,
@@ -444,7 +447,7 @@ const reducer = (state = initialState, action) => {
       newLane2.currentPlayer = 0;
       newLane2.currentFrame = 0;
       newLane2.winner = "";
-      
+
       return {
         ...state,
         lanes: newLanes2,
