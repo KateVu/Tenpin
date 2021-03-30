@@ -10,112 +10,18 @@ const initialState = {
     {
       laneid: "1",
       laneTitle: "Lane 1",
-      started: true,
-      players: [
-        {
-          playerName: "Player 1",
-          frames: [[6, 2], [6, 2]],
-          strike: [
-            {
-              isStrike: false,
-              nextScores: []
-            },
-            {
-              isStrike: false,
-              nextScores: []
-            }
-          ],
-          square: [
-            {
-              isSquare: false,
-              nextScores: []
-            },
-            {
-              isSquare: false,
-              nextScores: []
-            }
-          ],
-          cumulativeScores: [8, 8],
-          currentRoll: 1,
-          maxRolls: 2,
-          lastScore: 0,
-        },
-        {
-          playerName: "Player 2",
-          frames: [[6, 3]],
-          strike: [
-            {
-              isStrike: false,
-              nextScores: []
-            },
-          ],
-          square: [
-            {
-              isSquare: false,
-              nextScores: []
-            },
-          ],
-          cumulativeScores: [9],
-          maxRolls: 2,
-          currentRoll: 1,
-          lastScore: 0,
-        },
-
-        {
-          playerName: "Player 3",
-          frames: [[6, 3]],
-          strike: [
-            {
-              isStrike: false,
-              nextScores: []
-            },
-          ],
-          square: [
-            {
-              isSquare: false,
-              nextScores: []
-            },
-          ],
-          cumulativeScores: [9],
-          maxRolls: 2,
-          currentRoll: 1,
-          lastScore: 0,
-        },
-
-
-      ],
-      currentPlayer: 1,
-      currentFrame: 1,
-      winner: "User1",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
       ended: false
     },
     {
       laneid: "2",
       laneTitle: "Lane 2",
       started: true,
-      players: [
-        {
-          playerName: "Player 1",
-          frames: [],
-          strike: [],
-          square: [],
-          cumulativeScores: [],
-          currentRoll: 1,
-          maxRolls: 2,
-          lastScore: 0,
-        },
-        {
-          playerName: "Player 2",
-          frames: [],
-          strike: [],
-          square: [],
-          cumulativeScores: [],
-          maxRolls: 2,
-          currentRoll: 1,
-          lastScore: 0,
-        },
-
-      ],
+      players: [],
       currentPlayer: 0,
       currentFrame: 0,
       winner: "",
@@ -310,8 +216,6 @@ const initialState = {
       winner: "",
       ended: false
     },
-
-
   ],
 
 }
@@ -321,6 +225,9 @@ const reducer = (state = initialState, action) => {
     case 'ENTERSCORE':
       // let newState = {...state}; 
       let newLanes = [...state.lanes];
+      console.log("ENTER SCORE - LANES");
+      console.log(newLanes);
+
       let newLane = newLanes[state.currentLane];
       let currentFrame = newLane.currentFrame;
       let currentPlayer = newLane.players[newLane.currentPlayer];
