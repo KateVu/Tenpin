@@ -20,7 +20,7 @@ const initialState = {
     {
       laneid: "2",
       laneTitle: "Lane 2",
-      started: true,
+      started: false,
       players: [],
       currentPlayer: 0,
       currentFrame: 0,
