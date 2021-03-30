@@ -3,25 +3,8 @@
     flex-direction: column;
   }
   
-  .Restart {
-    width: 100px;
-    border-radius: 15px;
-    height: 35px;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    color: red;
-    border-color: red;
-    background-color: transparent;
-  }
-  
-  .Restart:hover {
-    background-color: red;
-    color: white;
-    opacity: 0.9;
-  }
-  
   button {
-    font-family: 'Bitter', cursive;
+    font-family: 'RobotoMono';
     width: 50px;
     height: 50px;
     margin: 10px;

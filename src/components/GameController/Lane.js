@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../containers/App.css';
 
 const lane = (props) => {
     return (

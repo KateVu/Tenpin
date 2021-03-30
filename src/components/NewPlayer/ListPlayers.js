@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './NewPlayers.css';
+import '../../containers/App.css';
 
 
 class ListPlayers extends Component {
@@ -19,8 +19,7 @@ class ListPlayers extends Component {
             console.log(players);
 
             listPlayers = players.map((player, index) => {
-                return (<div>{player.playerName}</div>);
-                
+                return (<div>{player.playerName}</div>); 
             });
         }
         return (

@@ -131,6 +131,186 @@ const initialState = {
       winner: "",
       ended: false
     },
+    {
+      laneid: "4",
+      laneTitle: "Lane 4",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+
+    {
+      laneid: "5",
+      laneTitle: "Lane 5",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+    {
+      laneid: "6",
+      laneTitle: "Lane 6",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+    {
+      laneid: "7",
+      laneTitle: "Lane 7",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+    {
+      laneid: "8",
+      laneTitle: "Lane 8",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+    {
+      laneid: "9",
+      laneTitle: "Lane 9",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+
+    {
+      laneid: "10",
+      laneTitle: "Lane 10",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+
+    {
+      laneid: "11",
+      laneTitle: "Lane 11",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+    {
+      laneid: "12",
+      laneTitle: "Lane 12",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+    {
+      laneid: "13",
+      laneTitle: "Lane 13",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+
+    {
+      laneid: "14",
+      laneTitle: "Lane 14",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+    {
+      laneid: "15",
+      laneTitle: "Lane 15",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+
+    {
+      laneid: "16",
+      laneTitle: "Lane 16",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+
+    {
+      laneid: "17",
+      laneTitle: "Lane 17",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+
+    {
+      laneid: "18",
+      laneTitle: "Lane 18",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+
+    {
+      laneid: "19",
+      laneTitle: "Lane 19",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+
+    {
+      laneid: "20",
+      laneTitle: "Lane 20",
+      started: false,
+      players: [],
+      currentPlayer: 0,
+      currentFrame: 0,
+      winner: "",
+      ended: false
+    },
+
 
   ],
 

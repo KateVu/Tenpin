@@ -22,12 +22,12 @@ class App extends Component {
         </header>
 
         <div className="Intro">
-          Wellcome to Swinburne Tenpin Bowling company
+          Wellcome to Swinburne Tenpin Bowling company - Click on buttons to enter your scores
         </div>
 
-        <div>
-          <Role isManager={this.props.isManager} />
-          <button onClick={this.switchRoleHandler}>Switch Role</button>
+        <div className='rowTitle'>
+          <button className='buttonSmall' onClick={this.switchRoleHandler}>Switch Role</button>
+          <Role isManager={this.props.isManager} className='role' />
         </div>
         {
           this.props.isManager? <GameManager/> : <Game/>

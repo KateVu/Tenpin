@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import './NewPlayers.css'
+import '../../containers/App.css';
 
 
 class NewPlayer extends Component {
@@ -44,13 +44,13 @@ class NewPlayer extends Component {
   render() {
     return (
       <form onSubmit={this.addPlayer}>
-        <h2>Add new player</h2>
         <input
+          className='textInput'
           type="text"
           value={this.state.name}
           onChange={this.setName}
           placeholder="Enter player name" />
-        <button type="submit" disabled={this.disableButton}>Add Player</button>
+        <button className='buttonSmallBlue' type="submit" disabled={this.disableButton}>Add Player</button>
       </form>
     );
 

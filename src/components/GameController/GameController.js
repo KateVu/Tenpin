@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import '../../containers/App.css';
+
 
 import Scorecard from '../Scorecard/Scorecard';
 import RollController from '../RollController/RollController';
@@ -35,10 +37,15 @@ class GameControler extends Component {
                 <h2>Lane: {this.props.lanes[this.props.currentLane].laneTitle}</h2>
                 <Scorecard />
                 <RollStatus />
-                <RollController
-                    gameOver={lane.ended}
-                    lastScore={lane.players[lane.currentPlayer].lastScore}
-                />
+                <div className='columnTitle'>
+                    <div></div>
+                    <RollController
+                        gameOver={lane.ended}
+                        lastScore={lane.players[lane.currentPlayer].lastScore}
+                    />
+                    <div></div>
+
+                </div>
             </div>
 
         )

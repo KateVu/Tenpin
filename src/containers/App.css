@@ -1,7 +1,7 @@
 
 .App {
   display: flex;
-  font-family: 'RobotoMono', cursive;
+  font-family: 'RobotoMono';
   flex-direction: column;
   align-items: center;
   margin-top: 0px;
@@ -15,6 +15,21 @@
 
 }
 
+.rowTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1px auto;
+}
+
+.columnTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
 .lanes {
   background-color: blue;
   display: flex;
@@ -26,6 +41,8 @@
 .lane {
   width: 90%;
   margin: 10px;
+  font-family: 'RobotoMono';
+  font-size: 1.5em;
 }
 
 .laneContent {
@@ -33,26 +50,19 @@
   display: flex;
   flex-direction: column;
   flex: 4;
-}
-
-.gameContent {
-  display: flex;
-  flex-direction: column;
-  color:red ;
+  padding: 10px;
 }
 
 .rules {
-  font-family: 'RobotoMono';
-
+  font-family: 'Roboto';
 }
 
 
 .Title {
   font-family: 'RobotoMono', cursive;
   text-align: center;
-  font-size: 60px;
+  font-size: 30px;
   color: red;
-  margin: 20px;
   margin-bottom: 0px;
 }
 
@@ -69,4 +79,28 @@
   color: red;
   margin: 20px;
   margin-bottom: 0px;
+}
+
+.buttonSmall {
+  background-color: green;
+  font-family: 'Roboto';
+  font-weight: bold;
+  width: 100px;
+}
+
+.buttonSmallBlue {
+  background-color: #27b09e;
+  font-family: 'Roboto';
+  font-weight: bold;
+  width: 100px;
+}
+
+.textInput {
+  font-family: 'Roboto';
+  height: 40px;
+}
+
+
+.role {
+  font-weight: bold;
 }

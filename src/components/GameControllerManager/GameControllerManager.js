@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import '../../containers/App.css';
 
 import Scorecard from '../Scorecard/Scorecard';
 import RollStatus from '../RollStatus/RollStatus';
@@ -33,11 +34,10 @@ class GameControlerManager extends Component {
                 return (
                     <div>
                         <h2>Lane: {this.props.lanes[this.props.currentLane].laneTitle}</h2>
-                        <div>The game has not started yet</div>
-                        <div>ADD PLAYERS AND START THE GAME</div>
+                        <h2>ADD PLAYERS AND START THE GAME</h2>
                         <NewPlayer/>
                         <ListPlayers/>
-                        <button onClick={this.handleClickStart}>Start</button>
+                        <button className='buttonSmallBlue' onClick={this.handleClickStart}>Start</button>
                     </div>
                 );
     
@@ -63,8 +63,8 @@ class GameControlerManager extends Component {
                     <div>
                         The game has ended, the winner is {lane.winner}
                         <Scorecard />
-                        <button onClick={this.handleClickReSet}>RESET</button>
-                        <button onClick={this.handleClickReStart}>RESTART</button>
+                        <button className='buttonSmallBlue' onClick={this.handleClickReSet}>RESET</button>
+                        <button className='buttonSmallBlue' onClick={this.handleClickReStart}>RESTART</button>
 
 
                     </div>
@@ -76,9 +76,13 @@ class GameControlerManager extends Component {
             <div>
                 <h2>Lane: {this.props.lanes[this.props.currentLane].laneTitle}</h2>
                 <Scorecard />
-                <button onClick={this.handleClickReSet}>RESET</button>
-                <button onClick={this.handleClickReStart}>RESTART</button>
                 <RollStatus />
+                <div className='columnTitle'>
+                <div className='rowTitle'>
+                    <button className='buttonSmallBlue' onClick={this.handleClickReSet}>RESET</button>
+                    <button className='buttonSmallBlue' onClick={this.handleClickReStart}>RESTART</button>
+                </div>
+                </div>
             </div>
 
         )

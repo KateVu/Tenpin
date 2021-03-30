@@ -10,7 +10,7 @@ const role = (props) => {
 
     return (
             <div>
-                Role: {role}
+                Current Role: <strong>{role}</strong>
             </div>
     );
 }
