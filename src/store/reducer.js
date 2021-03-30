@@ -420,7 +420,7 @@ const reducer = (state = initialState, action) => {
           strike: [],
           square: [],
           cumulativeScores: [],
-          currentRoll: 1,
+          currentRoll: 0,
           maxRolls: 2,
           lastScore: 0,
         }
@@ -431,7 +431,7 @@ const reducer = (state = initialState, action) => {
       newLane1.currentPlayer = 0;
       newLane1.currentFrame = 0;
       newLane1.winner = "";
-      
+
       return {
         ...state,
         lanes: newLanes1,
