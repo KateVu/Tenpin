@@ -420,7 +420,7 @@ const reducer = (state = initialState, action) => {
           strike: [],
           square: [],
           cumulativeScores: [],
-          currentRoll: 0,
+          currentRoll: 1,
           maxRolls: 2,
           lastScore: 0,
         }
