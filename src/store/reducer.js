@@ -173,7 +173,36 @@ const reducer = (state = initialState, action) => {
         // console.log(`BEFORE UPDATE STRIKE for frame ${rLane.currentFrame}, player: ${rLane.currentPlayer}, Strike: ${rCurrentPlayerOb.strike}`);
         // console.log(`UPDATE STRIKE for frame ${rLane.currentFrame}, player: ${rLane.currentPlayer}, value: ${rCurrentPlayerOb.strike[rLane.currentFrame].isStrike}, Strike: ${rCurrentPlayerOb.strike}`);
         //call check quare   
-        checkSquare();
+        if (rCurrentPlayerOb.currentRoll > 1) {
+          if (isSpare(rCurrentPlayerOb.lastScore, action.payload)) {
+            //if it is the 10th frame, increase amount of delivery/roll times:
+            if (rLane.currentFrame === 9) {
+              rCurrentPlayerOb.maxRolls = 3;
+              rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] + action.payload;
+            } else {
+              //update square array information
+              rCurrentPlayerOb.square.push({ isSquare: true, nextScores: [] });
+              // console.log("UPDATE SQUARE:");
+              // console.log(currentPlayer.square);
+              //update cumulativeScores
+              rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = -1;
+            }
+          } else {
+            //update square array information
+            if (typeof rCurrentPlayerOb.square[rLane.currentFrame] === 'undefined') {
+              //first time add cumulative scores
+              rCurrentPlayerOb.square.push({ isSquare: false });
+            }
+    
+            // console.log("UPDATE SQUARE:");
+            // console.log(currentPlayer.square);
+            //update cumulativeScores
+            rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] + action.payload;
+          }
+        } else {
+          //update cumulativeScores
+          rCurrentPlayerOb.cumulativeScores.push(action.payload);
+        }
       }
 
       function checkSquare() {
