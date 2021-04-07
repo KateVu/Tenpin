@@ -2,231 +2,59 @@
 import isStrike from '../utils/isStrike';
 import isSpare from '../utils/isSpare';
 
+const numberLane = 5;
+const initLanes = () => {
+  let temp = [];
+  for (let i = 0; i < numberLane; i++) {
+    temp.push(
+      {
+        laneid: i + 1,
+        laneTitle: `Lane ${i + 1}`,
+        started: false,
+        players: [],
+        currentPlayer: 0,
+        currentFrame: 0,
+        winner: "",
+        ended: false
+      }
+    );
+  }
+  return temp;
+}
 
-const initialState = {
-  isManager: true,
-  currentLane: 0,
-  lanes: [
-    {
-      laneid: "1",
-      laneTitle: "Lane 1",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-    {
-      laneid: "2",
-      laneTitle: "Lane 2",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-    {
-      laneid: "3",
-      laneTitle: "Lane 3",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-    {
-      laneid: "4",
-      laneTitle: "Lane 4",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
+let findWinners = (lane) => {
+  let listPlayers = lane.players;
+  let totalScores = listPlayers.map(player => {
+    let scores = [...player.cumulativeScores];
+    return scores.reduce((a, b) => a + b, 0);
+  });
+  const max = Math.max(...totalScores);
+  // console.log("FIND WINNERS: ");
+  // console.log(totalScores);
 
-    {
-      laneid: "5",
-      laneTitle: "Lane 5",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-    {
-      laneid: "6",
-      laneTitle: "Lane 6",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-    {
-      laneid: "7",
-      laneTitle: "Lane 7",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-    {
-      laneid: "8",
-      laneTitle: "Lane 8",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-    {
-      laneid: "9",
-      laneTitle: "Lane 9",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
+  // console.log(max);
 
-    {
-      laneid: "10",
-      laneTitle: "Lane 10",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-
-    {
-      laneid: "11",
-      laneTitle: "Lane 11",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-    {
-      laneid: "12",
-      laneTitle: "Lane 12",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-    {
-      laneid: "13",
-      laneTitle: "Lane 13",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-
-    {
-      laneid: "14",
-      laneTitle: "Lane 14",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-    {
-      laneid: "15",
-      laneTitle: "Lane 15",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-
-    {
-      laneid: "16",
-      laneTitle: "Lane 16",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-
-    {
-      laneid: "17",
-      laneTitle: "Lane 17",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-
-    {
-      laneid: "18",
-      laneTitle: "Lane 18",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-
-    {
-      laneid: "19",
-      laneTitle: "Lane 19",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-
-    {
-      laneid: "20",
-      laneTitle: "Lane 20",
-      started: false,
-      players: [],
-      currentPlayer: 0,
-      currentFrame: 0,
-      winner: "",
-      ended: false
-    },
-  ],
+  const res = [];
+  totalScores.forEach((item, index) => item === max ? res.push(listPlayers[index].playerName): null);
+  // console.log('WINNER: ');
+  // console.log(res.toString());
+  return res.toString();
 
 }
 
+let initialState = {
+  isManager: true,
+  currentLane: 0,
+  lanes: initLanes(),
+}
 const reducer = (state = initialState, action) => {
+
   switch (action.type) {
     case 'ENTERSCORE':
       // let newState = {...state}; 
       let newLanes = [...state.lanes];
-      console.log("ENTER SCORE - LANES");
-      console.log(newLanes);
+      // console.log("ENTER SCORE - LANES");
+      // console.log(newLanes);
 
       let newLane = newLanes[state.currentLane];
       let currentFrame = newLane.currentFrame;
@@ -256,7 +84,6 @@ const reducer = (state = initialState, action) => {
             }
           }
         } else {
-
           if (currentPlayer.strike[currentFrame - 1].isStrike === true) {
             if (currentPlayer.strike[currentFrame - 1].nextScores.length < 2) {
               currentPlayer.strike[currentFrame - 1].nextScores.push(action.payload);
@@ -290,14 +117,13 @@ const reducer = (state = initialState, action) => {
         }
       }
 
-
-
       //STRIKE: ADD NEW ROLL IF THE LAST FRAME, RECORD STRIKE ARRAY
       if (isStrike(currentPlayer.currentRoll, action.payload)) {
         //if it is the 10th frame, increase amount of delivery/roll times:
         console.log("ISSTRIKE");
         if (currentFrame == 9) {
           currentPlayer.maxRolls = 3;
+          currentPlayer.lastScore = 0;
           if (typeof currentPlayer.cumulativeScores[currentFrame] === 'undefined') {
             //first time add cumulative scores
             currentPlayer.cumulativeScores.push(action.payload);
@@ -307,8 +133,8 @@ const reducer = (state = initialState, action) => {
           //update strike array information
           currentPlayer.strike.push({ isStrike: true, nextScores: [] });
           currentPlayer.square.push({ isSquare: false });
-          console.log("UPDATE STRIKE:");
-          console.log(currentPlayer.strike);
+          // console.log("UPDATE STRIKE:");
+          // console.log(currentPlayer.strike);
 
           //add -1 to cumulative scores
           if (typeof currentPlayer.cumulativeScores[currentFrame] === 'undefined') {
@@ -330,16 +156,16 @@ const reducer = (state = initialState, action) => {
             } else {
               //update square array information
               currentPlayer.square.push({ isSquare: true, nextScores: [] });
-              console.log("UPDATE SQUARE:");
-              console.log(currentPlayer.square);
+              // console.log("UPDATE SQUARE:");
+              // console.log(currentPlayer.square);
               //update cumulativeScores
               currentPlayer.cumulativeScores[currentFrame] = -1;
             }
           } else {
             //update square array information
             currentPlayer.square.push({ isSquare: false });
-            console.log("UPDATE SQUARE:");
-            console.log(currentPlayer.square);
+            // console.log("UPDATE SQUARE:");
+            // console.log(currentPlayer.square);
             //update cumulativeScores
             currentPlayer.cumulativeScores[currentFrame] = currentPlayer.cumulativeScores[currentFrame] + action.payload;
 
@@ -358,6 +184,7 @@ const reducer = (state = initialState, action) => {
         //change status of the game
         newLane.ended = true;
         // console.log(newLane.ended);
+        newLane.winner = findWinners(newLane);
 
       } else {
         //check if need to move to next player
@@ -372,7 +199,6 @@ const reducer = (state = initialState, action) => {
                 //last player in the list: update index of current player, current roll and lastScore
                 newLane.currentPlayer = 0;
                 newLane.currentFrame++;
-                currentPlayer.lastScore = 0;
               } else {
                 newLane.currentPlayer = newLane.currentPlayer + 1;
                 currentPlayer.lastScore = 0;
