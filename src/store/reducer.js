@@ -168,7 +168,7 @@ const reducer = (state = initialState, action) => {
         if (typeof rCurrentPlayerOb.strike[rLane.currentFrame] === 'undefined') {
           //first time add cumulative scores
           rCurrentPlayerOb.strike.push({ isStrike: false });
-        }
+        };
 
         // console.log(`BEFORE UPDATE STRIKE for frame ${rLane.currentFrame}, player: ${rLane.currentPlayer}, Strike: ${rCurrentPlayerOb.strike}`);
         // console.log(`UPDATE STRIKE for frame ${rLane.currentFrame}, player: ${rLane.currentPlayer}, value: ${rCurrentPlayerOb.strike[rLane.currentFrame].isStrike}, Strike: ${rCurrentPlayerOb.strike}`);
