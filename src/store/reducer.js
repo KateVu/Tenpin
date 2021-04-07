@@ -1,8 +1,7 @@
-
 import isStrike from '../utils/isStrike';
 import isSpare from '../utils/isSpare';
 
-const numberLane = 5;
+const numberLane = 20;
 const initLanes = () => {
   let temp = [];
   for (let i = 0; i < numberLane; i++) {
@@ -35,7 +34,7 @@ let findWinners = (lane) => {
   // console.log(max);
 
   const res = [];
-  totalScores.forEach((item, index) => item === max ? res.push(listPlayers[index].playerName): null);
+  totalScores.forEach((item, index) => item === max ? res.push(listPlayers[index].playerName) : null);
   // console.log('WINNER: ');
   // console.log(res.toString());
   return res.toString();
@@ -49,55 +48,84 @@ let initialState = {
 }
 const reducer = (state = initialState, action) => {
 
+  let rLanes;
+  let rLane;
+  let rCurrentPlayerOb;
+  let rNumberPlayersIndex;
+
   switch (action.type) {
     case 'ENTERSCORE':
-      // let newState = {...state}; 
-      let newLanes = [...state.lanes];
-      // console.log("ENTER SCORE - LANES");
-      // console.log(newLanes);
+      rLanes = [...state.lanes];
+      rLane = rLanes[state.currentLane];
+      rCurrentPlayerOb = rLane.players[rLane.currentPlayer];
+      rNumberPlayersIndex = rLane.players.length - 1;
+      console.log("ENTER SCORE - LANES");
+      // console.log(rLanes);
 
-      let newLane = newLanes[state.currentLane];
-      let currentFrame = newLane.currentFrame;
-      let currentPlayer = newLane.players[newLane.currentPlayer];
-      let numberPlayers = newLanes[state.currentLane].players.length - 1;
-
-      console.log(newLane.players[newLane.currentPlayer].frames);
       //UPDATE SCORE TO FRAMES
-      if (typeof newLane.players[newLane.currentPlayer].frames[currentFrame] === 'undefined') {
+      //if new frame, create an array for with first element = pins and push to frames
+      if (typeof rCurrentPlayerOb.frames[rLane.currentFrame] === 'undefined') {
         // console.log('UPDATE with not currentframe:');
-        let newScore = [[action.payload]];
-
-        let frames = newLane.players[newLane.currentPlayer].frames;
+        let newScore = [action.payload];
+        let frames = rCurrentPlayerOb.frames;
         frames.push(newScore);
+        // console.log(frames);
       } else {
-
-        newLane.players[newLane.currentPlayer].frames[currentFrame].push(action.payload);
+        // console.log('UPDATE with existing currentframe:');
+        rCurrentPlayerOb.frames[rLane.currentFrame].push(action.payload);
+        // console.log(rCurrentPlayerOb.frames);
       }
 
-      // //UPDATE PREVIOUS STRIKE
-      if (currentFrame > 0) {
-        if (currentFrame === 1) {
-          if (currentPlayer.strike[0].isStrike) {
-            currentPlayer.strike[0].nextScores.push(action.payload);
-            if (currentPlayer.strike[0].nextScores.length === 2) {
-              currentPlayer.cumulativeScores[0] = 10 + currentPlayer.strike[0].nextScores[0] + currentPlayer.strike[0].nextScores[1];
+      //UPDATE PREVIOUS STRIKE - only check if not at first frame
+      if (rLane.currentFrame > 0) {
+        console.log('CHECK UPDATE PREVIOUS STRIKE for frame');
+        console.log(rLane.currentFrame);
+        //if at second frame, only check frame T-1 -> idex = 0
+        if (rLane.currentFrame === 1) {
+          console.log('CHECK UPDATE PREVIOUS STRIKE at frame 1');
+          let nextScores = rCurrentPlayerOb.strike[0].nextScores;
+          if (rCurrentPlayerOb.strike[0].isStrike) {
+            console.log(`UPDATE PREVIOUS STRIKE for frame 0, player: ${rLane.currentPlayer}`);
+            nextScores.push(action.payload);
+            console.log('UPDATE PREVIOUS STRIKE: add next Scores ');
+            console.log(rCurrentPlayerOb.strike[0].nextScores);
+            console.log(nextScores);
+
+            if (rCurrentPlayerOb.strike[0].nextScores.length === 2) {
+              rCurrentPlayerOb.cumulativeScores[0] = 10 + nextScores[0] + nextScores[1];
+              console.log('UPDATE PREVIOUS STRIKE: add cumulated Score ');
+              console.log(rCurrentPlayerOb.cumulativeScores[0]);
             }
           }
         } else {
-          if (currentPlayer.strike[currentFrame - 1].isStrike === true) {
-            if (currentPlayer.strike[currentFrame - 1].nextScores.length < 2) {
-              currentPlayer.strike[currentFrame - 1].nextScores.push(action.payload);
-              if (currentPlayer.strike[currentFrame - 1].nextScores.length === 2) {
-                currentPlayer.cumulativeScores[currentFrame - 1] = 10 + currentPlayer.strike[currentFrame - 1].nextScores[0] + currentPlayer.strike[currentFrame - 1].nextScores[1];
+          //if from third frame (idex > 1), check frame T-1, T-2
+          console.log('UPDATE PREVIOUS STRIKE if current frame != 1');
+          if (rCurrentPlayerOb.strike[rLane.currentFrame - 2].isStrike) {
+            console.log(`UPDATE PREVIOUS STRIKE for frame ${rLane.currentFrame - 2}, player: ${rLane.currentPlayer}`);
+            let nextScores = rCurrentPlayerOb.strike[rLane.currentFrame - 2].nextScores;
+            if (nextScores.length < 2) {
+              nextScores.push(action.payload);
+              console.log('UPDATE PREVIOUS STRIKE: add next Scores ');
+              console.log(nextScores);
+              if (nextScores.length === 2) {
+                rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 2] = 10 + nextScores[0] + nextScores[1];
+                console.log('UPDATE PREVIOUS STRIKE: add cumulated Score ');
+                console.log(rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 2]);
               }
             }
           }
 
-          if (currentPlayer.strike[currentFrame - 2].isStrike === true) {
-            if (currentPlayer.strike[currentFrame - 2].nextScores.length < 2) {
-              currentPlayer.strike[currentFrame - 2].nextScores.push(action.payload);
-              if (currentPlayer.strike[currentFrame - 2].nextScores.length === 2) {
-                currentPlayer.cumulativeScores[currentFrame - 2] = 10 + currentPlayer.strike[currentFrame - 2].nextScores[0] + currentPlayer.strike[currentFrame - 2].nextScores[1];
+          if (rCurrentPlayerOb.strike[rLane.currentFrame - 1].isStrike) {
+            console.log(`UPDATE PREVIOUS STRIKE for frame ${rLane.currentFrame - 1}, player: ${rLane.currentPlayer}`);
+            let nextScores = rCurrentPlayerOb.strike[rLane.currentFrame - 1].nextScores;
+            if (nextScores.length < 2) {
+              nextScores.push(action.payload);
+              console.log('UPDATE PREVIOUS STRIKE: add next Scores ');
+              console.log(nextScores);
+              if (nextScores.length === 2) {
+                rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 1] = 10 + nextScores[0] + nextScores[1];
+                console.log('UPDATE PREVIOUS STRIKE: add cumulated Score ');
+                console.log(rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 1]);
               }
             }
           }
@@ -106,127 +134,146 @@ const reducer = (state = initialState, action) => {
       }
 
       //UPDATE PREVIOUS SQUARE
-      if (currentFrame > 0) {
-        console.log("CURRENT FRAME:");
-        console.log(currentFrame);
-
-        if (currentPlayer.square[currentFrame - 1].isSquare) {
-          if (currentPlayer.square[currentFrame - 1].nextScores.length < 1) {
-            currentPlayer.cumulativeScores[currentFrame - 1] = 10 + action.payload;
+      if (rLane.currentFrame > 0) {
+        if (rCurrentPlayerOb.square[rLane.currentFrame - 1].isSquare) {
+          if (rCurrentPlayerOb.square[rLane.currentFrame - 1].nextScores.length < 1) {
+            rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 1] = 10 + action.payload;
           }
         }
       }
 
-      //STRIKE: ADD NEW ROLL IF THE LAST FRAME, RECORD STRIKE ARRAY
-      if (isStrike(currentPlayer.currentRoll, action.payload)) {
-        //if it is the 10th frame, increase amount of delivery/roll times:
+      //IS_STRIKE: ADD NEW ROLL IF THE LAST FRAME, RECORD STRIKE ARRAY
+      if (isStrike(rCurrentPlayerOb.currentRoll, action.payload)) {
         console.log("ISSTRIKE");
-        if (currentFrame == 9) {
-          currentPlayer.maxRolls = 3;
-          currentPlayer.lastScore = 0;
-          if (typeof currentPlayer.cumulativeScores[currentFrame] === 'undefined') {
+        //if it is the 10th frame, increase amount of delivery/roll times and add scores to cumulateScore for the frame
+        if (rLane.currentFrame === 9) {
+          rCurrentPlayerOb.maxRolls = 3;
+          if (typeof rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] === 'undefined') {
             //first time add cumulative scores
-            currentPlayer.cumulativeScores.push(action.payload);
+            rCurrentPlayerOb.cumulativeScores.push(action.payload);
+          } else {
+            rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] + action.payload;
           }
 
         } else {
-          //update strike array information
-          currentPlayer.strike.push({ isStrike: true, nextScores: [] });
-          currentPlayer.square.push({ isSquare: false });
-          // console.log("UPDATE STRIKE:");
+          //Not last frame: update strike, and square array information
+          rCurrentPlayerOb.strike.push({ isStrike: true, nextScores: [] });
+          rCurrentPlayerOb.square.push({ isSquare: false });
+          // console.log(`UPDATE STRIKE for frame ${rLane.currentFrame}, player: ${rLane.currentPlayer}, value: ${rCurrentPlayerOb.strike[rLane.currentFrame].isStrike}, Strike: ${rCurrentPlayerOb.strike}`);
           // console.log(currentPlayer.strike);
 
-          //add -1 to cumulative scores
-          if (typeof currentPlayer.cumulativeScores[currentFrame] === 'undefined') {
+          //add -1 to cumulative scores: strike is only for first role
+          if (typeof rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] === 'undefined') {
             //first time add cumulative scores
-            currentPlayer.cumulativeScores.push(-1);
+            rCurrentPlayerOb.cumulativeScores.push(-1);
           }
         }
-        //Not a strike
       } else {
-        //update strike array information
-        currentPlayer.strike.push({ isStrike: false });
-        //handle if is spare
-        if (currentPlayer.currentRoll > 1) {
-          if (isSpare(currentPlayer.lastScore, action.payload)) {
+        //Not a strike
+        if (typeof rCurrentPlayerOb.strike[rLane.currentFrame] === 'undefined') {
+          //first time add cumulative scores
+          rCurrentPlayerOb.strike.push({ isStrike: false });
+        }
+
+        // console.log(`BEFORE UPDATE STRIKE for frame ${rLane.currentFrame}, player: ${rLane.currentPlayer}, Strike: ${rCurrentPlayerOb.strike}`);
+        // console.log(`UPDATE STRIKE for frame ${rLane.currentFrame}, player: ${rLane.currentPlayer}, value: ${rCurrentPlayerOb.strike[rLane.currentFrame].isStrike}, Strike: ${rCurrentPlayerOb.strike}`);
+        //call check quare   
+        checkSquare();
+      }
+
+      function checkSquare() {
+        if (rCurrentPlayerOb.currentRoll > 1) {
+          if (isSpare(rCurrentPlayerOb.lastScore, action.payload)) {
             //if it is the 10th frame, increase amount of delivery/roll times:
-            if (currentFrame == 9) {
-              currentPlayer.maxRolls = 3;
-              currentPlayer.cumulativeScores[currentFrame] = currentPlayer.cumulativeScores[currentFrame] + action.payload;
+            if (rLane.currentFrame === 9) {
+              rCurrentPlayerOb.maxRolls = 3;
+              rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] + action.payload;
             } else {
               //update square array information
-              currentPlayer.square.push({ isSquare: true, nextScores: [] });
+              rCurrentPlayerOb.square.push({ isSquare: true, nextScores: [] });
               // console.log("UPDATE SQUARE:");
               // console.log(currentPlayer.square);
               //update cumulativeScores
-              currentPlayer.cumulativeScores[currentFrame] = -1;
+              rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = -1;
             }
           } else {
             //update square array information
-            currentPlayer.square.push({ isSquare: false });
+            if (typeof rCurrentPlayerOb.square[rLane.currentFrame] === 'undefined') {
+              //first time add cumulative scores
+              rCurrentPlayerOb.square.push({ isSquare: false });
+            }
+    
             // console.log("UPDATE SQUARE:");
             // console.log(currentPlayer.square);
             //update cumulativeScores
-            currentPlayer.cumulativeScores[currentFrame] = currentPlayer.cumulativeScores[currentFrame] + action.payload;
-
+            rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] + action.payload;
           }
         } else {
           //update cumulativeScores
-          currentPlayer.cumulativeScores.push(action.payload);
+          rCurrentPlayerOb.cumulativeScores.push(action.payload);
         }
       }
 
-      //update user infor:lastScore
-      currentPlayer.lastScore = action.payload;
-      //check if endgame
-      if ((currentFrame == 9) && (newLane.currentPlayer == numberPlayers) && (currentPlayer.currentRoll == currentPlayer.maxRolls)) {
-        // console.log("END GAME");
+
+      if ((rLane.currentFrame === 9) && (rLane.currentPlayer === rNumberPlayersIndex) && (rCurrentPlayerOb.currentRoll === rCurrentPlayerOb.maxRolls)) {
+        console.log("END GAME");
         //change status of the game
-        newLane.ended = true;
+        rLane.ended = true;
         // console.log(newLane.ended);
-        newLane.winner = findWinners(newLane);
+        rLane.winner = findWinners(rLane);
 
       } else {
         //check if need to move to next player
-        if (currentPlayer.currentRoll < currentPlayer.maxRolls) {
-          if (!isStrike(currentPlayer.currentRoll, action.payload)) {
-            //update current roll
-            currentPlayer.currentRoll = currentPlayer.currentRoll + 1;
+        if (rCurrentPlayerOb.currentRoll < rCurrentPlayerOb.maxRolls) {
+          if (!isStrike(rCurrentPlayerOb.currentRoll, action.payload)) {
+            //update current roll and last score
+            rCurrentPlayerOb.currentRoll = rCurrentPlayerOb.currentRoll + 1;
+            if (isSpare(rCurrentPlayerOb.lastScore, action.payload) && (rLane.currentFrame === 9)) {
+              rCurrentPlayerOb.lastScore = 0;
+            } else {
+              rCurrentPlayerOb.lastScore = action.payload;
+            }
           } else {
-            if (currentFrame < 9) {
+            if (rLane.currentFrame < 9) {
               //Move to next player if score a strike and not the last frame
-              if (newLane.currentPlayer === numberPlayers) {
+              console.log("Move to next player");
+              if (rLane.currentPlayer === rNumberPlayersIndex) {
                 //last player in the list: update index of current player, current roll and lastScore
-                newLane.currentPlayer = 0;
-                newLane.currentFrame++;
+                rLane.currentPlayer = 0;
+                rLane.currentFrame++;
+                console.log(`NEXT FRAME: ${rLane.currentFrame}`);
               } else {
-                newLane.currentPlayer = newLane.currentPlayer + 1;
-                currentPlayer.lastScore = 0;
+                rLane.currentPlayer = rLane.currentPlayer + 1;
               }
-              currentPlayer.currentRoll = 1;
+              rCurrentPlayerOb.lastScore = 0;
+              rCurrentPlayerOb.currentRoll = 1;
+              console.log(`Player ${rLane.currentPlayer}, Frame: ${rLane.currentFrame}`);
+
             } else {
               //Continue to roll if score a strike and the last frame
-              currentPlayer.currentRoll = currentPlayer.currentRoll + 1;
+              rCurrentPlayerOb.currentRoll = rCurrentPlayerOb.currentRoll + 1;
+              rCurrentPlayerOb.lastScore = 0;
             }
           }
         } else {
           //move to next player
-          if (newLane.currentPlayer == numberPlayers) {
+          if (rLane.currentPlayer === rNumberPlayersIndex) {
             //last player in the list: update index of current player, current roll and lastScore
-            newLane.currentPlayer = 0;
-            newLane.currentFrame++;
-            currentPlayer.lastScore = 0;
+            rLane.currentPlayer = 0;
+            rLane.currentFrame++;
+            rCurrentPlayerOb.lastScore = 0;
           } else {
-            newLane.currentPlayer = newLane.currentPlayer + 1;
-            currentPlayer.lastScore = 0;
+            rLane.currentPlayer = rLane.currentPlayer + 1;
+            rCurrentPlayerOb.lastScore = 0;
           }
-          currentPlayer.currentRoll = 1;
+          rCurrentPlayerOb.currentRoll = 1;
 
         }
       }
+
       return {
         ...state,
-        lanes: newLanes,
+        lanes: rLanes,
       }
     case 'ENTERLANE':
       return {
@@ -280,26 +327,26 @@ const reducer = (state = initialState, action) => {
       }
 
 
-      case 'START':
-        // newLanes = [...state.lanes];
-        let newLanesStart = [...state.lanes];
-        let newLaneStart = newLanesStart[state.currentLane];
-        newLaneStart.started = true;
-        newLaneStart.ended = false;
-  
-        return {
-          ...state,
-          lanes: newLanesStart,
-        }
-  
+    case 'START':
+      // newLanes = [...state.lanes];
+      let newLanesStart = [...state.lanes];
+      let newLaneStart = newLanesStart[state.currentLane];
+      newLaneStart.started = true;
+      newLaneStart.ended = false;
+
+      return {
+        ...state,
+        lanes: newLanesStart,
+      }
+
     case 'ADDPLAYER':
-      console.log("ADDPLAYER CALLED");
-      console.log(action.payload)
+      // console.log("ADDPLAYER CALLED");
+      // console.log(action.payload)
 
       let newLanesAddPlayer = [...state.lanes];
       let newLaneAddPlayer = newLanesAddPlayer[state.currentLane];
-      console.log('NEW LANE');
-      console.log(newLaneAddPlayer);
+      // console.log('NEW LANE');
+      // console.log(newLaneAddPlayer);
       newLaneAddPlayer.players.push(
         {
           playerName: action.payload,
@@ -311,9 +358,9 @@ const reducer = (state = initialState, action) => {
           maxRolls: 2,
           lastScore: 0,
         });
-        console.log('UPDATED');
-        console.log(newLaneAddPlayer);
-  
+      console.log('UPDATED');
+      console.log(newLaneAddPlayer);
+
       return {
         ...state,
         lanes: newLanesAddPlayer
