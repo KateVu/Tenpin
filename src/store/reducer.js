@@ -28,11 +28,6 @@ let findWinners = (lane) => {
     return scores.reduce((a, b) => a + b, 0);
   });
   const max = Math.max(...totalScores);
-  // console.log("FIND WINNERS: ");
-  // console.log(totalScores);
-
-  // console.log(max);
-
   const res = [];
   totalScores.forEach((item, index) => item === max ? res.push(listPlayers[index].playerName) : null);
   // console.log('WINNER: ');
