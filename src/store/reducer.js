@@ -130,8 +130,10 @@ const reducer = (state = initialState, action) => {
 
       //UPDATE PREVIOUS spare
       if (rLane.currentFrame > 0) {
+        let nextScores = rCurrentPlayerOb.spare[rLane.currentFrame - 1].nextScores;
         if (rCurrentPlayerOb.spare[rLane.currentFrame - 1].isSpare) {
           if (rCurrentPlayerOb.spare[rLane.currentFrame - 1].nextScores.length < 1) {
+            nextScores.push(action.payload);
             rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 1] = 10 + action.payload;
           }
         }
