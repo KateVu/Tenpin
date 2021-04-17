@@ -176,7 +176,7 @@ const reducer = (state = initialState, action) => {
         // console.log(`UPDATE STRIKE for frame ${rLane.currentFrame}, player: ${rLane.currentPlayer}, value: ${rCurrentPlayerOb.strike[rLane.currentFrame].isStrike}, Strike: ${rCurrentPlayerOb.strike}`);
         //call check quare   
         if (rCurrentPlayerOb.currentRoll > 1) {
-          if (isSpare(rCurrentPlayerOb.lastScore, action.payload)) {
+          if (isSpare(rCurrentPlayerOb.currentRoll, rCurrentPlayerOb.lastScore, action.payload)) {
             //if it is the 10th frame, increase amount of delivery/roll times:
             if (rLane.currentFrame === 9) {
               rCurrentPlayerOb.maxRolls = 3;
@@ -206,40 +206,6 @@ const reducer = (state = initialState, action) => {
           rCurrentPlayerOb.cumulativeScores.push(action.payload);
         }
       }
-
-      function checkspare() {
-        if (rCurrentPlayerOb.currentRoll > 1) {
-          if (isSpare(rCurrentPlayerOb.lastScore, action.payload)) {
-            //if it is the 10th frame, increase amount of delivery/roll times:
-            if (rLane.currentFrame === 9) {
-              rCurrentPlayerOb.maxRolls = 3;
-              rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] + action.payload;
-            } else {
-              //update spare array information
-              rCurrentPlayerOb.spare.push({ isSpare: true, nextScores: [] });
-              // console.log("UPDATE spare:");
-              // console.log(currentPlayer.spare);
-              //update cumulativeScores
-              rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = -1;
-            }
-          } else {
-            //update spare array information
-            if (typeof rCurrentPlayerOb.spare[rLane.currentFrame] === 'undefined') {
-              //first time add cumulative scores
-              rCurrentPlayerOb.spare.push({ isSpare: false });
-            }
-    
-            // console.log("UPDATE spare:");
-            // console.log(currentPlayer.spare);
-            //update cumulativeScores
-            rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] + action.payload;
-          }
-        } else {
-          //update cumulativeScores
-          rCurrentPlayerOb.cumulativeScores.push(action.payload);
-        }
-      }
-
 
       if ((rLane.currentFrame === 9) && (rLane.currentPlayer === rNumberPlayersIndex) && (rCurrentPlayerOb.currentRoll === rCurrentPlayerOb.maxRolls)) {
         console.log("END GAME");
@@ -254,7 +220,7 @@ const reducer = (state = initialState, action) => {
           if (!isStrike(rCurrentPlayerOb.currentRoll, action.payload)) {
             //update current roll and last score
             rCurrentPlayerOb.currentRoll = rCurrentPlayerOb.currentRoll + 1;
-            if (isSpare(rCurrentPlayerOb.lastScore, action.payload) && (rLane.currentFrame === 9)) {
+            if (isSpare(rCurrentPlayerOb.currentRoll, rCurrentPlayerOb.lastScore, action.payload) && (rLane.currentFrame === 9)) {
               rCurrentPlayerOb.lastScore = 0;
             } else {
               rCurrentPlayerOb.lastScore = action.payload;
