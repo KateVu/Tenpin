@@ -152,6 +152,10 @@ const reducer = (state = initialState, action) => {
             rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] + action.payload;
           }
 
+          //UPDATE IF STRIKE FOR LAST FRAME
+          // rCurrentPlayerOb.strike.push({ isStrike: true, nextScores: [] });
+          // rCurrentPlayerOb.spare.push({ isSpare: false });
+
         } else {
           //Not last frame: update strike, and spare array information
           rCurrentPlayerOb.strike.push({ isStrike: true, nextScores: [] });
@@ -176,11 +180,16 @@ const reducer = (state = initialState, action) => {
         // console.log(`UPDATE STRIKE for frame ${rLane.currentFrame}, player: ${rLane.currentPlayer}, value: ${rCurrentPlayerOb.strike[rLane.currentFrame].isStrike}, Strike: ${rCurrentPlayerOb.strike}`);
         //call check quare   
         if (rCurrentPlayerOb.currentRoll > 1) {
-          if (isSpare(rCurrentPlayerOb.currentRoll, rCurrentPlayerOb.lastScore, action.payload)) {
+          if (isSpare(rCurrentPlayerOb.lastScore, action.payload)) {
             //if it is the 10th frame, increase amount of delivery/roll times:
             if (rLane.currentFrame === 9) {
               rCurrentPlayerOb.maxRolls = 3;
               rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] = rCurrentPlayerOb.cumulativeScores[rLane.currentFrame] + action.payload;
+
+              //UPDATE SPARE INFOR FOR LAST FRAME
+              // if ((rCurrentPlayerOb.currentRoll === 2) && (action.payload !== 10)) {
+              //   rCurrentPlayerOb.spare.push({ isSpare: true });
+              // }
             } else {
               //update spare array information
               rCurrentPlayerOb.spare.push({ isSpare: true, nextScores: [] });
@@ -217,10 +226,10 @@ const reducer = (state = initialState, action) => {
       } else {
         //check if need to move to next player
         if (rCurrentPlayerOb.currentRoll < rCurrentPlayerOb.maxRolls) {
-          if (!isStrike(rCurrentPlayerOb.currentRoll, action.payload)) {
+          if (!isStrike(rCurrentPlayerOb.lastScore, action.payload)) {
             //update current roll and last score
             rCurrentPlayerOb.currentRoll = rCurrentPlayerOb.currentRoll + 1;
-            if (isSpare(rCurrentPlayerOb.currentRoll, rCurrentPlayerOb.lastScore, action.payload) && (rLane.currentFrame === 9)) {
+            if (isSpare(rCurrentPlayerOb.lastScore, action.payload) && (rLane.currentFrame === 9)) {
               rCurrentPlayerOb.lastScore = 0;
             } else {
               rCurrentPlayerOb.lastScore = action.payload;
