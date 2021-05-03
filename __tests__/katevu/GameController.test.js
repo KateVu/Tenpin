@@ -1,8 +1,12 @@
+/**
+ * Testsuit for GameController component
+ * author: KateVu
+ */
 import React from 'react'
-import GameController from '../src/components/GameController/GameController';
+import GameController from '../../src/components/GameController/GameController';
 import { queryByAttribute } from '@testing-library/react';
 // eslint-disable-next-line jest/no-mocks-import
-import { render, screen } from '../__mocks__/test-utils';
+import { render, screen } from '../../__mocks__/test-utils';
 import '@testing-library/jest-dom/extend-expect';
 
 //init data

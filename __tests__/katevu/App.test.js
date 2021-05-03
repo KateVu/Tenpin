@@ -3,10 +3,10 @@
  * author: KateVu
  */
 import React from 'react'
-import App from '../src/containers/App';
+import App from '../../src/containers/App';
 import { queryByAttribute } from '@testing-library/react';
 // eslint-disable-next-line jest/no-mocks-import
-import { render } from '../__mocks__/test-utils';
+import { render } from '../../__mocks__/test-utils';
 import '@testing-library/jest-dom/extend-expect';
 
 //init data
