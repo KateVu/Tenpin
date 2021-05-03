@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Role from '../components/Role/Role.js';
 import Game from './Game/Game';
 import GameManager from './GameManager/GameManager';
-// import './AppStyle.css';
+import './AppStyle.css';
 
 
 class App extends Component {
@@ -12,24 +12,6 @@ class App extends Component {
   switchRoleHandler = () => {
     this.props.switchRole();
   }
-
-//   render() {
-//     return (
-//       <div className="App">
-//         <header className="App-header">
-//           <h1 className="Title">Swinburne Tenpin Bowling</h1>
-//         </header>
-
-//         <div className="Intro">
-//           Wellcome to Swinburne Tenpin Bowling company - Click on buttons to enter your scores
-//         </div>
-//       </div>
-//     );
-//   }
-
-// }
-
-
   
   render() {
     return (
@@ -47,7 +29,7 @@ class App extends Component {
           <Role isManager={this.props.isManager} className='role' />
         </div>
         {
-          this.props.isManager? <GameManager/> : <Game/>
+          this.props.isManager? <GameManager id='game-manager'/> : <Game/>
         }
         
 
@@ -73,5 +55,3 @@ const mapDispatchToProps = dispatch => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-// export default App;

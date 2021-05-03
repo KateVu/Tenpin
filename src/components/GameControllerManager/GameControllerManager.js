@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import '../../containers/App.css';
+import '../../containers/AppStyle.css';
 
 import Scorecard from '../Scorecard/Scorecard';
 import RollStatus from '../RollStatus/RollStatus';
@@ -37,7 +37,7 @@ class GameControlerManager extends Component {
                         <h2>ADD PLAYERS AND START THE GAME</h2>
                         <NewPlayer/>
                         <ListPlayers/>
-                        <button className='buttonSmallBlue' onClick={this.handleClickStart}>Start</button>
+                        <button id='start-button' className='buttonSmallBlue' onClick={this.handleClickStart}>Start</button>
                     </div>
                 );
     
@@ -63,8 +63,8 @@ class GameControlerManager extends Component {
                     <div>
                         The game has ended, the winner is {lane.winner}
                         <Scorecard />
-                        <button className='buttonSmallBlue' onClick={this.handleClickReSet}>RESET</button>
-                        <button className='buttonSmallBlue' onClick={this.handleClickReStart}>RESTART</button>
+                        <button id='reset-button' className='buttonSmallBlue' onClick={this.handleClickReSet}>RESET</button>
+                        <button id='restart-button' className='buttonSmallBlue' onClick={this.handleClickReStart}>RESTART</button>
 
 
                     </div>
@@ -79,8 +79,8 @@ class GameControlerManager extends Component {
                 <RollStatus />
                 <div className='columnTitle'>
                 <div className='rowTitle'>
-                    <button className='buttonSmallBlue' onClick={this.handleClickReSet}>RESET</button>
-                    <button className='buttonSmallBlue' onClick={this.handleClickReStart}>RESTART</button>
+                    <button id='reset-button' className='buttonSmallBlue' onClick={this.handleClickReSet}>RESET</button>
+                    <button id='restart-button' className='buttonSmallBlue' onClick={this.handleClickReStart}>RESTART</button>
                 </div>
                 </div>
             </div>

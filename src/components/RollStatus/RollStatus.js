@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 
-//  import './RollStatus.css'
+import './RollStatus.css'
 
 class RollStatus extends Component {
   
@@ -22,7 +22,7 @@ class RollStatus extends Component {
     } 
 
     return (
-      <div className='Container'>
+      <div id='roll-status' className='Container'>
         <h2>Game Information</h2>
         <div>Frame: {frame}</div>
         <div>Turn: {turn}</div>

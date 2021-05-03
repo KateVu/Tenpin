@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import './Scoreitem';
 import Scoreitem from './Scoreitem';
-// import './ScorecardStyle.css'
+import './ScorecardStyle.css'
 
 
 class Scorecard extends Component {
@@ -25,7 +25,7 @@ class Scorecard extends Component {
     )
 
     return (
-      <div className='Container'>
+      <div id='scoreboard' className='Container'>
         <h2>Scoreboard</h2>
         <table id='table' className='Scorecard' cellPadding='1' cellSpacing='0'>
           <tbody>

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
 import Scorecard from '../Scorecard/Scorecard';
 import RollController from '../RollController/RollController';
 import RollStatus from '../RollStatus/RollStatus';
-// import '../../containers/AppStyle.css';
+import '../../containers/AppStyle.css';
 
 class GameControler extends Component {
-
     render() {
         let lane = this.props.lanes[this.props.currentLane];
         if (!lane.started) {

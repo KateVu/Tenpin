@@ -1,13 +1,12 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import '../../containers/App.css';
-
+import '../../containers/AppStyle.css';
 
 class ListPlayers extends Component {
 
     render() {
-        console.log("LIST USER CALLED");
+        // console.log("LIST USER CALLED");
         let players = this.props.lanes[this.props.currentLane].players;
         let listPlayers;
         if (players.length < 1) {
@@ -15,16 +14,16 @@ class ListPlayers extends Component {
                 <div>Do not have any players yet</div>
             )
         } else {
-            console.log("LIST USERS");
-            console.log(players);
+            // console.log("LIST USERS");
+            // console.log(players);
 
             listPlayers = players.map((player, index) => {
-                return (<div>{player.playerName}</div>); 
+                return (<div key={index}>{player.playerName}</div>); 
             });
         }
         return (
             <div>
-                <div>LIST OF PLAYERS</div>
+                <div id='list-player'>LIST OF PLAYERS</div>
                 {listPlayers}
             </div>
         );

@@ -1,9 +1,7 @@
   
 import React, {Component} from 'react';
 
-import isStrike from '../../utils/isStrike';
-
-// import './ScorecardStyle.css';
+import './ScorecardStyle.css';
 
 class Scoreitem extends Component {
   renderScores = (frame, roll) => {

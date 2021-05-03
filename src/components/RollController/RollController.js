@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 
-// import './RollController.css'
+import './RollController.css'
 
 class RollController extends Component {
   handleClick = pins => {
@@ -15,14 +15,14 @@ class RollController extends Component {
     } = this.props
 
     if (gameOver) return true;
-    if (lastScore == 10) return false;
+    if (lastScore === 10) return false;
     if (number > (10-lastScore)) return true;
     return false;
   }
 
   render () {
     return (
-      <div className='Container'>
+      <div id='roll-controller' className='Container'>
         <div>
           <button id='pin0' disabled={this.disableButton(0)} onClick={() => this.handleClick(0)}>-</button>
           <button id='pin1' disabled={this.disableButton(1)} onClick={() => this.handleClick(1)}>1</button>

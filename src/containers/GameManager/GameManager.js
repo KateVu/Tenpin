@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-// import '../App.css';
+import '../AppStyle.css';
 
-import Gamecontroler from '../../components/GameController/GameController';
-import Introduce from '../../components/introduce';
 import GameControllerManager from "../../components/GameControllerManager/GameControllerManager";
 
 class GameManager extends Component { 
@@ -16,13 +14,13 @@ class GameManager extends Component {
             <div className="lanes">
                 {this.props.lanes.map((lane, index) => {
                     return (
-                        <button className="lane" onClick={() => this.handleClick(index)}>{lane.laneTitle}</button>      
+                        <button key={lane.id} className="lane" onClick={() => this.handleClick(index)}>{lane.laneTitle}</button>      
                     )
                 })}
             </div>
         )
         return (
-            <div className="row">
+            <div id='game-manager' className="row">
                 {lanes}
                 <div className="laneContent">
                     <div>This is UI for Manager</div>

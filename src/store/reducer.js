@@ -48,13 +48,14 @@ const reducer = (state = initialState, action) => {
   let rCurrentPlayerOb;
   let rNumberPlayersIndex;
 
+  // eslint-disable-next-line default-case
   switch (action.type) {
     case 'ENTERSCORE':
       rLanes = [...state.lanes];
       rLane = rLanes[state.currentLane];
       rCurrentPlayerOb = rLane.players[rLane.currentPlayer];
       rNumberPlayersIndex = rLane.players.length - 1;
-      console.log("ENTER SCORE - LANES");
+      // console.log("ENTER SCORE - LANES");
       // console.log(rLanes);
 
       //UPDATE SCORE TO FRAMES
@@ -204,7 +205,7 @@ const reducer = (state = initialState, action) => {
               //first time add cumulative scores
               rCurrentPlayerOb.spare.push({ isSpare: false });
             }
-    
+
             // console.log("UPDATE spare:");
             // console.log(currentPlayer.spare);
             //update cumulativeScores
@@ -379,10 +380,12 @@ const reducer = (state = initialState, action) => {
         isManager: !state.isManager,
       }
 
-
+    default:
+      return {
+        ...state,
+      }
   }
 
-  return state
 }
 
 export default reducer;

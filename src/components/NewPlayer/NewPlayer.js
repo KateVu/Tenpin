@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// import '../../containers/App.css';
+import '../../containers/AppStyle.css';
 
 
 class NewPlayer extends Component {
@@ -23,7 +23,7 @@ class NewPlayer extends Component {
     submit_event.preventDefault();
 
     // Call .dispatch on Redux store
-    if ((this.state.name != '') && (this.props.lanes[this.props.currentLane].players.length < 4)) {
+    if ((this.state.name !== '') && (this.props.lanes[this.props.currentLane].players.length < 4)) {
       this.props.addPlayer(this.state.name);
     }
     // Clear input
@@ -43,14 +43,14 @@ class NewPlayer extends Component {
 
   render() {
     return (
-      <form onSubmit={this.addPlayer}>
+      <form id='add-player' onSubmit={this.addPlayer}>
         <input
           className='textInput'
           type="text"
           value={this.state.name}
           onChange={this.setName}
           placeholder="Enter player name" />
-        <button className='buttonSmallBlue' type="submit" disabled={this.disableButton}>Add Player</button>
+        <button className='buttonSmallBlue' type="submit">Add Player</button>
       </form>
     );
 
