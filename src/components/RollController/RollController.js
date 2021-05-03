@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 
-import './RollController.css'
+// import './RollController.css'
 
 class RollController extends Component {
   handleClick = pins => {

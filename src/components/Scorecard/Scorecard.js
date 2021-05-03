@@ -1,10 +1,11 @@
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import './Scorecard.css'
-import './Scoreitem'
+import './Scoreitem';
 import Scoreitem from './Scoreitem';
+// import './ScorecardStyle.css'
+
 
 class Scorecard extends Component {
   

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import '../App.css';
 
 import Gamecontroler from '../../components/GameController/GameController';
 import Introduce from '../../components/introduce';
+// import '../AppStyle.css';
 
 class Game extends Component { 
     handleClick = (index) => {

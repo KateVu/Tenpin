@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import '../../containers/App.css';
 
 
 import Scorecard from '../Scorecard/Scorecard';
 import RollController from '../RollController/RollController';
 import RollStatus from '../RollStatus/RollStatus';
+// import '../../containers/AppStyle.css';
 
 class GameControler extends Component {
 

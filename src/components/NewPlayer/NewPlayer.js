@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import '../../containers/App.css';
+// import '../../containers/App.css';
 
 
 class NewPlayer extends Component {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 
- import './RollStatus.css'
+//  import './RollStatus.css'
 
 class RollStatus extends Component {
   
