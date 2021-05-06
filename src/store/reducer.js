@@ -226,8 +226,10 @@ const reducer = (state = initialState, action) => {
 
       } else {
         //check if need to move to next player
+        console.log("CHECK IF MOVE TO THE NEXT PLAYER");
         if (rCurrentPlayerOb.currentRoll < rCurrentPlayerOb.maxRolls) {
-          if (!isStrike(rCurrentPlayerOb.lastScore, action.payload)) {
+          if (!isStrike(rCurrentPlayerOb.currentRoll, action.payload)) {
+            console.log("CHECK IF MOVE TO THE NEXT PLAYER: NOT A STRIKE");
             //update current roll and last score
             rCurrentPlayerOb.currentRoll = rCurrentPlayerOb.currentRoll + 1;
             if (isSpare(rCurrentPlayerOb.lastScore, action.payload) && (rLane.currentFrame === 9)) {
@@ -236,15 +238,19 @@ const reducer = (state = initialState, action) => {
               rCurrentPlayerOb.lastScore = action.payload;
             }
           } else {
+            console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE");
             if (rLane.currentFrame < 9) {
+              console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE AND NOT LAST FRAME");
               //Move to next player if score a strike and not the last frame
               console.log("Move to next player");
               if (rLane.currentPlayer === rNumberPlayersIndex) {
+                console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE AND NOT LAST FRAME AND START NEW FRAME");
                 //last player in the list: update index of current player, current roll and lastScore
                 rLane.currentPlayer = 0;
                 rLane.currentFrame++;
                 console.log(`NEXT FRAME: ${rLane.currentFrame}`);
               } else {
+                console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE AND NOT LAST FRAME AND MOVE TO NEXT PLAYER SAME FRME");
                 rLane.currentPlayer = rLane.currentPlayer + 1;
               }
               rCurrentPlayerOb.lastScore = 0;
