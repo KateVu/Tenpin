@@ -1,10 +1,11 @@
 import reducer from './reducer';
+import { testreducerData2 } from './testreducer2';
 
 const numberLane = 20;
 const initLanes = () => {
     let temp = [];
     for (let i = 0; i < numberLane; i++) {
-        temp.push(
+        temp.push(  
             {
                 laneid: i + 1,
                 laneTitle: `Lane ${i + 1}`,
@@ -49,4 +50,19 @@ describe('reducer', () => {
             )
         ).toEqual(resultEnterLane)
     })
+
+    it('should handle RESTART', () => {
+
+        var initData = testreducerData2[0];
+        var expectData = testreducerData2[1];
+
+        expect(
+            reducer(initData,
+                {
+                    type: 'RESTART',
+                }
+            )
+        ).toEqual(expectData)
+    })
+
 })
