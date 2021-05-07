@@ -168,6 +168,4 @@ describe('reducer', () => {
         )
     ).toEqual(expectData)
 })
-
-
 })

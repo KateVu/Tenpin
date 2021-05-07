@@ -2,9 +2,9 @@ import React from 'react'
 // We're using our own custom render function and not RTL's render
 // our custom utils also re-export everything from RTL
 // so we can import fireEvent and screen here as well
-import Game from './Game';
+import Game from '../../src/containers/Game/Game';
 // eslint-disable-next-line jest/no-mocks-import
-import { render, fireEvent, screen } from '../../../__mocks__/test-utils';
+import { render, fireEvent, screen } from '../../__utils__/test-utils';
 import '@testing-library/jest-dom/extend-expect';
 
 
