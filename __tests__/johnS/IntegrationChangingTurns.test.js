@@ -3,12 +3,15 @@ import React from 'react';
 import { render, fireEvent } from '../../__utils__/test-utils';
 import { queryByAttribute } from '@testing-library/react';
 import RollController from '../../src/components/RollController/RollController';
-import { currentState, expectedState } from '../../__testdata__/testIntergrationData/testRollControllerIntegration_changeTurn1'
 import reducer from '../../src/store/reducer'
 import { createStore } from 'redux'
 
 it('10 - Last frame with only 2 rolls and 2 strikes', () => 
 {
+    const testData = require('../../__testdata__/testIntergrationData/testRollControllerIntegration_changeTurn1.js').default;
+    const currentState = testData[0];
+    const expectedState = testData[1];
+
     //Create a store outside to track its data later
     let testStore = createStore(reducer, currentState);
 
