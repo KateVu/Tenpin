@@ -28,11 +28,11 @@ class Scoreitem extends Component {
 
     return ([
         <tr>
-        <td id='player'colSpan='6'>{playerName}</td>
-        <td id='r1' colSpan='3'>{this.renderScores(0,0)}</td><td id='r2' colSpan='3'>{this.renderScores(0,1)}</td>
-        <td id='r3' colSpan='3'>{this.renderScores(1,0)}</td><td id='r4' colSpan='3'>{this.renderScores(1,1)}</td>
-        <td id='r5' colSpan='3'>{this.renderScores(2,0)}</td><td id='r6' colSpan='3'>{this.renderScores(2,1)}</td>
-        <td id='r7' colSpan='3'>{this.renderScores(3,0)}</td><td id='r8' colSpan='3'>{this.renderScores(3,1)}</td>
+        <td id={"player" + playerName} colSpan='6'>{playerName}</td>
+        <td id={'r1' + playerName} colSpan='3'>{this.renderScores(0,0)}</td><td id={'r2' + playerName} colSpan='3'>{this.renderScores(0,1)}</td>
+        <td id={'r3' + playerName} colSpan='3'>{this.renderScores(1,0)}</td><td id={'r4' + playerName} colSpan='3'>{this.renderScores(1,1)}</td>
+        <td id={'r5' + playerName} colSpan='3'>{this.renderScores(2,0)}</td><td id={'r6' + playerName} colSpan='3'>{this.renderScores(2,1)}</td>
+        <td id={'r7' + playerName} colSpan='3'>{this.renderScores(3,0)}</td><td id={'r8' + playerName} colSpan='3'>{this.renderScores(3,1)}</td>
         <td id='r9' colSpan='3'>{this.renderScores(4,0)}</td><td id='r10' colSpan='3'>{this.renderScores(4,1)}</td>
         <td id='r11' colSpan='3'>{this.renderScores(5,0)}</td><td id='r12' colSpan='3'>{this.renderScores(5,1)}</td>
         <td id='r13' colSpan='3'>{this.renderScores(6,0)}</td><td id='r14' colSpan='3'>{this.renderScores(6,1)}</td>

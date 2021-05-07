@@ -9,7 +9,7 @@ export const testEnterScoreData1 = [
                 started: true,
                 players: [
                     {
-                        playerName: 'User 1',
+                        playerName: 'User1',
                         frames: [[1, 1], [1, 1], [10], [1]],
                         strike: [{ isStrike: false }, { isStrike: false }, { isStrike: true, nextScores: [1] }, { isStrike: false }],
                         spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }],
@@ -19,7 +19,7 @@ export const testEnterScoreData1 = [
                         lastScore: 1,
                     },
                     {
-                        playerName: 'User 2',
+                        playerName: 'User2',
                         frames: [[1, 1], [1, 1], [1, 1]],
                         strike: [{ isStrike: false }, { isStrike: false }, { isStrike: false }],
                         spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }],
@@ -46,7 +46,7 @@ export const testEnterScoreData1 = [
                 started: true,
                 players: [
                     {
-                        playerName: 'User 1',
+                        playerName: 'User1',
                         frames: [[1, 1], [1, 1], [10], [1, 8]],
                         strike: [{ isStrike: false }, { isStrike: false }, { isStrike: true, nextScores: [1, 1] }, { isStrike: false }],
                         spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }, { isSpare: false }],
@@ -56,7 +56,7 @@ export const testEnterScoreData1 = [
                         lastScore: 0,
                     },
                     {
-                        playerName: 'User 2',
+                        playerName: 'User2',
                         frames: [[1, 1], [1, 1], [1, 1]],
                         strike: [{ isStrike: false }, { isStrike: false }, { isStrike: false }],
                         spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }],
