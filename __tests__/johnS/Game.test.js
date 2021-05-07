@@ -2,12 +2,10 @@ import React from 'react'
 // We're using our own custom render function and not RTL's render
 // our custom utils also re-export everything from RTL
 // so we can import fireEvent and screen here as well
-import GameManager from './GameManager';
+import Game from '../../src/containers/Game/Game';
 // eslint-disable-next-line jest/no-mocks-import
-import { render, fireEvent, screen } from '../../../__mocks__/test-utils';
+import { render, screen } from '../../__utils__/test-utils';
 import '@testing-library/jest-dom/extend-expect';
-
-
 
 const numberLane = 20;
 const initLanes = () => {
@@ -56,14 +54,15 @@ const initLanes = () => {
 }
 
 let initState1 = {
-  isManager: true,
+  isManager: false,
   currentLane: 0,
   lanes: initLanes(),
 }
 
-
 it('Renders the connected app with initialState', () => {
-  render(<GameManager />, { initialState: initState1 })
+  const originalError = console.error;
+  console.error = jest.fn();
+  render(<Game />, { initialState: initState1 })
 
   //Test that lane 1 is selected with the Lane: ... prefix
   expect(screen.getByText("Lane: Lane 1")).toBeInTheDocument()
@@ -80,13 +79,18 @@ it('Renders the connected app with initialState', () => {
   expect(screen.getByText("Turn: User 1")).toBeInTheDocument()
   expect(screen.getByText("Current Roll: 1")).toBeInTheDocument()
 
-  //Test that the manager-only reset and restart buttons are visible
-  expect(screen.getByText("RESET")).toBeInTheDocument()
-  expect(screen.getByText("RESTART")).toBeInTheDocument()
+  //Testing that the buttons are visible, this ensures that we are in a non-manager role
+  expect(screen.getByText("-")).toBeInTheDocument();
+  for (let i = 1; i < 10; i++)
+  {
+    expect(screen.getByText(String(i))).toBeInTheDocument();
+  }
+  expect(screen.getByText("X")).toBeInTheDocument();
 
   //Test that all lane buttons are visible in the document
   for (let i = 0; i < initState1.lanes.length; i++)
   {
     expect(screen.getByText("Lane " + String(i + 1))).toBeInTheDocument()
   }
+  console.error = originalError;
 })

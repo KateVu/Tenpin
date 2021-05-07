@@ -1,12 +1,11 @@
-import Lane from "./Lane";
+import Lane from "../../src/components/GameController/Lane";
 import "@testing-library/jest-dom";
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow } from "enzyme";
- 
 Enzyme.configure({ adapter: new Adapter() });
 
-test("Lane changes successfully", () =>
+it("Lane changes successfully", () =>
 {
     const mockCallBack = jest.fn();
     //Test that the button calls the mock function
