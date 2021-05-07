@@ -1,15 +1,18 @@
-exports.currentState = {
-  isManager: false,
-  currentLane: 0,
-  lanes: [
-
-  ]
-}
-
-exports.expectedState = {
-  isManager: false,
-  currentLane: 0,
-  lanes: [
-
-  ]
-}
+export default [
+  //Initial state
+  {
+    isManager: false,
+    currentLane: 0,
+    lanes: [
+  
+    ]
+  },
+  //Expected result
+  {
+    isManager: false,
+    currentLane: 0,
+    lanes: [
+  
+    ]
+  }
+];
