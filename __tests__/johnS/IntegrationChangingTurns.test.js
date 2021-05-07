@@ -120,3 +120,26 @@ it('14 - Non-final player in last frame on last roll => Next player', () =>
 
     expect(reducerState).toEqual(expectedState);
 })
+
+it('15 - Non-final player in last frame on last roll => Next roll', () => 
+{
+    const testData = require('../../__testdata__/testIntergrationData/testRollControllerIntegration_changeTurn6').default;
+    const currentState = testData[0];
+    const expectedState = testData[1];
+
+    //Create a store outside to track its data later
+    let testStore = createStore(reducer, currentState);
+
+    //Render the integration under test
+    const app = render(<RollController />, { store: testStore });
+
+    //Press a button as part of this test
+    const getById = queryByAttribute.bind(null, 'id');
+    const button7 = getById(app.container, 'pin7');
+    fireEvent.click(button7);
+
+    //Get the updated reducer data
+    const reducerState = testStore.getState();
+
+    expect(reducerState).toEqual(expectedState);
+})
