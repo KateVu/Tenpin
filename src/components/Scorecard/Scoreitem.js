@@ -33,27 +33,28 @@ class Scoreitem extends Component {
         <td id={'r3' + playerName} colSpan='3'>{this.renderScores(1,0)}</td><td id={'r4' + playerName} colSpan='3'>{this.renderScores(1,1)}</td>
         <td id={'r5' + playerName} colSpan='3'>{this.renderScores(2,0)}</td><td id={'r6' + playerName} colSpan='3'>{this.renderScores(2,1)}</td>
         <td id={'r7' + playerName} colSpan='3'>{this.renderScores(3,0)}</td><td id={'r8' + playerName} colSpan='3'>{this.renderScores(3,1)}</td>
-        <td id='r9' colSpan='3'>{this.renderScores(4,0)}</td><td id='r10' colSpan='3'>{this.renderScores(4,1)}</td>
-        <td id='r11' colSpan='3'>{this.renderScores(5,0)}</td><td id='r12' colSpan='3'>{this.renderScores(5,1)}</td>
-        <td id='r13' colSpan='3'>{this.renderScores(6,0)}</td><td id='r14' colSpan='3'>{this.renderScores(6,1)}</td>
-        <td id='r15' colSpan='3'>{this.renderScores(7,0)}</td><td id='r16' colSpan='3'>{this.renderScores(7,1)}</td>
-        <td id='r17' colSpan='3'>{this.renderScores(8,0)}</td><td id='r18' colSpan='3'>{this.renderScores(8,1)}</td>
-        <td id='r19' colSpan='2'>{this.renderScores(9,0)}</td><td id='r20' colSpan='2'>{this.renderScores(9,1)}</td><td id='r21' colSpan='2'>{this.renderScores(9,2)}</td>
-        <td id='total-score' className='Total' colSpan='6'>{totalScore}</td>
+        <td id={'r9' + playerName} colSpan='3'>{this.renderScores(4,0)}</td><td id={'r10' + playerName} colSpan='3'>{this.renderScores(4,1)}</td>
+        <td id={'r11' + playerName} colSpan='3'>{this.renderScores(5,0)}</td><td id={'r12' + playerName} colSpan='3'>{this.renderScores(5,1)}</td>
+        <td id={'r13' + playerName} colSpan='3'>{this.renderScores(6,0)}</td><td id={'r14' + playerName} colSpan='3'>{this.renderScores(6,1)}</td>
+        <td id={'r15' + playerName} colSpan='3'>{this.renderScores(7,0)}</td><td id={'r16' + playerName} colSpan='3'>{this.renderScores(7,1)}</td>
+        <td id={'r17' + playerName} colSpan='3'>{this.renderScores(8,0)}</td><td id={'r18' + playerName} colSpan='3'>{this.renderScores(8,1)}</td>
+        <td id={'r19' + playerName} colSpan='2'>{this.renderScores(9,0)}</td><td id={'r20' + playerName} colSpan='2'>{this.renderScores(9,1)}</td>
+        <td id={'r21' + playerName} colSpan='2'>{this.renderScores(9,2)}</td>
+        <td id={'total-score' + playerName} className='Total' colSpan='6'>{totalScore}</td>
       </tr>,
         <tr>
         <td colSpan='6'></td>
-        <td id='cumulative-score-f1' colSpan='6'>{cumulativeScores[0] === -1? "X" : cumulativeScores[0]}</td>
-        <td id='cumulative-score-f2' colSpan='6'>{cumulativeScores[1] === -1? "X" : cumulativeScores[1]}</td>
-        <td id='cumulative-score-f3' colSpan='6'>{cumulativeScores[2] === -1? "X" : cumulativeScores[2]}</td>
-        <td id='cumulative-score-f4' colSpan='6'>{cumulativeScores[3] === -1? "X" : cumulativeScores[3]}</td>
-        <td id='cumulative-score-f5' colSpan='6'>{cumulativeScores[4] === -1? "X" : cumulativeScores[4]}</td>
-        <td id='cumulative-score-f6' colSpan='6'>{cumulativeScores[5] === -1? "X" : cumulativeScores[5]}</td>
-        <td id='cumulative-score-f7' colSpan='6'>{cumulativeScores[6] === -1? "X" : cumulativeScores[6]}</td>
-        <td id='cumulative-score-f8' colSpan='6'>{cumulativeScores[7] === -1? "X" : cumulativeScores[7]}</td>
-        <td id='cumulative-score-f9' colSpan='6'>{cumulativeScores[8] === -1? "X" : cumulativeScores[8]}</td>
-        <td id='cumulative-score-f10' colSpan='6'>{cumulativeScores[9] === -1? "X" : cumulativeScores[9]}</td>
-        <td id='total-score' colSpan='6'></td>
+        <td id={'cumulative-score-f1' + playerName} colSpan='6'>{cumulativeScores[0] === -1? "X" : cumulativeScores[0]}</td>
+        <td id={'cumulative-score-f2' + playerName} colSpan='6'>{cumulativeScores[1] === -1? "X" : cumulativeScores[1]}</td>
+        <td id={'cumulative-score-f3' + playerName} colSpan='6'>{cumulativeScores[2] === -1? "X" : cumulativeScores[2]}</td>
+        <td id={'cumulative-score-f4' + playerName} colSpan='6'>{cumulativeScores[3] === -1? "X" : cumulativeScores[3]}</td>
+        <td id={'cumulative-score-f5' + playerName} colSpan='6'>{cumulativeScores[4] === -1? "X" : cumulativeScores[4]}</td>
+        <td id={'cumulative-score-f6' + playerName} colSpan='6'>{cumulativeScores[5] === -1? "X" : cumulativeScores[5]}</td>
+        <td id={'cumulative-score-f7' + playerName} colSpan='6'>{cumulativeScores[6] === -1? "X" : cumulativeScores[6]}</td>
+        <td id={'cumulative-score-f8' + playerName} colSpan='6'>{cumulativeScores[7] === -1? "X" : cumulativeScores[7]}</td>
+        <td id={'cumulative-score-f9' + playerName} colSpan='6'>{cumulativeScores[8] === -1? "X" : cumulativeScores[8]}</td>
+        <td id={'cumulative-score-f10' + playerName} colSpan='6'>{cumulativeScores[9] === -1? "X" : cumulativeScores[9]}</td>
+        <td id={'total-score1' + playerName} colSpan='6'></td>
       </tr>,
       <tr className="drawline">
       </tr>,

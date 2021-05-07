@@ -10,27 +10,27 @@ export const testEnterScoreData1 = [
                 players: [
                     {
                         playerName: 'User1',
-                        frames: [[1, 1], [1, 1], [10], [1]],
-                        strike: [{ isStrike: false }, { isStrike: false }, { isStrike: true, nextScores: [1] }, { isStrike: false }],
-                        spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }],
-                        cumulativeScores: [2, 2, -1, 1],
-                        currentRoll: 2,
+                        frames: [[1, 1], [1, 1]],
+                        strike: [{ isStrike: false }, { isStrike: false }],
+                        spare: [{ isSpare: false }, { isSpare: false }],
+                        cumulativeScores: [2, 2],  //Updated for first roll, -1 when spare
+                        currentRoll: 1,     //Starts at 1
                         maxRolls: 2,
-                        lastScore: 1,
+                        lastScore: 0,
                     },
                     {
                         playerName: 'User2',
-                        frames: [[1, 1], [1, 1], [1, 1]],
-                        strike: [{ isStrike: false }, { isStrike: false }, { isStrike: false }],
-                        spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }],
-                        cumulativeScores: [2, 2, 2],
+                        frames: [[1, 1], [1, 1]],
+                        strike: [{ isStrike: false }, { isStrike: false }],
+                        spare: [{ isSpare: false }, { isSpare: false }],
+                        cumulativeScores: [2, 2],
                         currentRoll: 1,
                         maxRolls: 2,
                         lastScore: 0,
                     }
                 ],
                 currentPlayer: 0,
-                currentFrame: 3,
+                currentFrame: 2,
                 winner: "",
                 ended: false
             },
@@ -47,31 +47,32 @@ export const testEnterScoreData1 = [
                 players: [
                     {
                         playerName: 'User1',
-                        frames: [[1, 1], [1, 1], [10], [1, 8]],
-                        strike: [{ isStrike: false }, { isStrike: false }, { isStrike: true, nextScores: [1, 1] }, { isStrike: false }],
-                        spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }, { isSpare: false }],
-                        cumulativeScores: [2, 2, 12, 2],
-                        currentRoll: 2,
+                        frames: [[1, 1], [1, 1], [10]],
+                        strike: [{ isStrike: false }, { isStrike: false }, { isStrike: true, nextScores: [] }],
+                        spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }],
+                        cumulativeScores: [2, 2, -1],
+                        currentRoll: 1,
                         maxRolls: 2,
                         lastScore: 0,
                     },
                     {
                         playerName: 'User2',
-                        frames: [[1, 1], [1, 1], [1, 1]],
-                        strike: [{ isStrike: false }, { isStrike: false }, { isStrike: false }],
-                        spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }],
-                        cumulativeScores: [2, 2, 2],
+                        frames: [[1, 1], [1, 1]],
+                        strike: [{ isStrike: false }, { isStrike: false }],
+                        spare: [{ isSpare: false }, { isSpare: false }],
+                        cumulativeScores: [2, 2],
                         currentRoll: 1,
                         maxRolls: 2,
                         lastScore: 0,
                     }
                 ],
                 currentPlayer: 1,
-                currentFrame: 3,
+                currentFrame: 2,
                 winner: "",
                 ended: false
-            },
-        ]
-    }
-
+            }]
+    },
+    'pin10',
+    'r8User1',
+    '8'
 ];
