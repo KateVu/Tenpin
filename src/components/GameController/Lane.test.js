@@ -6,7 +6,7 @@ import { shallow } from "enzyme";
  
 Enzyme.configure({ adapter: new Adapter() });
 
-test("Lane changes successfully", () =>
+it("Lane changes successfully", () =>
 {
     const mockCallBack = jest.fn();
     //Test that the button calls the mock function
