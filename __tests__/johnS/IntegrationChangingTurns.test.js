@@ -75,9 +75,9 @@ it('12 - Players scores a normal score in a non-final frame', () =>
     expect(reducerState).toEqual(expectedState);
 })
 
-it('13 - Non-final player in last frame on last roll', () => 
+it('13 - Non-final player in non-final frame on last roll', () => 
 {
-    const testData = require('../../__testdata__/testIntergrationData/testRollControllerIntegration_changeTurn3').default;
+    const testData = require('../../__testdata__/testIntergrationData/testRollControllerIntegration_changeTurn4').default;
     const currentState = testData[0];
     const expectedState = testData[1];
 
@@ -89,8 +89,8 @@ it('13 - Non-final player in last frame on last roll', () =>
 
     //Press a button as part of this test
     const getById = queryByAttribute.bind(null, 'id');
-    const button3 = getById(app.container, 'pin3');
-    fireEvent.click(button3);
+    const button6 = getById(app.container, 'pin6');
+    fireEvent.click(button6);
 
     //Get the updated reducer data
     const reducerState = testStore.getState();
