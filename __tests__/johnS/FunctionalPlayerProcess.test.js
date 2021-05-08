@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { render, fireEvent } from '../../__utils__/test-utils';
+import { render, fireEvent, screen } from '../../__utils__/test-utils';
 import { queryByAttribute } from '@testing-library/react';
-import { test1Data, test2Data } from '../../__testdata__/testFunctionalData/testPlayerProcessData';
+import { test1Data, test2Data, test3Data } from '../../__testdata__/testFunctionalData/testPlayerProcessData';
 import App from '../../src/containers/App';
 
 
@@ -92,7 +92,6 @@ it('2 - Player plays in 5th frame => ScoreBoard, RollController, and RollStatus 
     const originalError = console.error;
     console.error = jest.fn();
 
-    // const testData = 
 
     //Render the entire application
     const app = render(<App />, { initialState: test2Data.reducerState });
@@ -110,7 +109,7 @@ it('2 - Player plays in 5th frame => ScoreBoard, RollController, and RollStatus 
     const isScoreboardDisplayed = (scoreboard) ? true : false;
     expect(isScoreboardDisplayed);
 
-    //Check that the individual scoreitem exists that should be updated; ID is "r1" + *PlayerName*
+    //Check that the individual scoreitem exists that should be updated; ID is "r9" + *PlayerName*
     const scoreItem = getById(app.container, 'r9' + test2Data.reducerState.lanes[0].players[1].playerName);
     const isScoreItemDisplayed = (scoreItem) ? true : false;
     expect(isScoreItemDisplayed);
@@ -167,6 +166,70 @@ it('2 - Player plays in 5th frame => ScoreBoard, RollController, and RollStatus 
     expect(istotalScoreDisplayed); 
     expect(totalScore.innerHTML).toBe("37");
 //#endregion
+
+
+    //Return any error if there was one originally
+    console.error = originalError;
+})
+
+
+it('3 - Player plays last frame => ScoreBoard updates, RollController and RollStatus disappear, endscreen shows', () => 
+{
+    //Ignore warnings during rendering
+    const originalError = console.error;
+    console.error = jest.fn();
+
+
+    //Render the entire application
+    const app = render(<App />, { initialState: test3Data.reducerState });
+
+    //Player 1 presses button 5 to score
+    const getById = queryByAttribute.bind(null, 'id');
+    const buttonToClick = getById(app.container, test3Data.buttonIDToClick);
+    
+    fireEvent.click(buttonToClick);
+
+//#region Test the ScoreBoard exists and is updated
+
+    //Check that the whole scoreboard exists
+    const scoreboard = getById(app.container, 'scoreboard');
+    const isScoreboardDisplayed = (scoreboard) ? true : false;
+    expect(isScoreboardDisplayed);
+
+    //Check that the individual scoreitem exists that should be updated; ID is "r20" + *PlayerName*
+    const scoreItem = getById(app.container, 'r20' + test3Data.reducerState.lanes[0].players[1].playerName);
+    const isScoreItemDisplayed = (scoreItem) ? true : false;
+    expect(isScoreItemDisplayed);
+    //Check that the scoreitem displays the score just achieved
+    expect(scoreItem.innerHTML).toBe(test3Data.expectedScore);
+
+//#endregion
+
+//#region Test that some components have been removed
+
+    //Check that the whole RollController is gone
+    const rollController = getById(app.container, 'roll-controller');
+    const isrollControllerDisplayed = (rollController) ? true : false;
+    expect(isrollControllerDisplayed).toBe(false); 
+
+    //Check that the RollStatus is gone
+    const rollStatus = getById(app.container, 'roll-status');
+    const isrollStatusDisplayed = (rollStatus) ? true : false;
+    expect(isrollStatusDisplayed).toBe(false); 
+
+//#endregion
+
+//#region Test the total score exists and is correctly updated
+
+    const totalScore = getById(app.container, 'total-score'+test2Data.reducerState.lanes[0].players[1].playerName);
+    const istotalScoreDisplayed = (totalScore) ? true : false;
+    expect(istotalScoreDisplayed); 
+    expect(totalScore.innerHTML).toBe("27");
+
+//#endregion
+
+    //Test that the correct endgame message is displayed
+    expect(screen.getByText("The game has ended, the winner is User 2")).toBeInTheDocument();
 
 
     //Return any error if there was one originally
