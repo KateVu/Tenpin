@@ -62,7 +62,13 @@ let initState1 = {
 }
 
 
-it('Renders the connected app with initialState', () => {
+it('Renders the connected app with initialState', () => 
+{
+  //Ignore warnings during rendering
+  const originalError = console.error;
+  console.error = jest.fn();
+  
+  
   render(<GameManager />, { initialState: initState1 })
 
   //Test that lane 1 is selected with the Lane: ... prefix
@@ -89,4 +95,8 @@ it('Renders the connected app with initialState', () => {
   {
     expect(screen.getByText("Lane " + String(i + 1))).toBeInTheDocument()
   }
+
+
+  //Return any error if there was one originally
+  console.error = originalError;
 })
