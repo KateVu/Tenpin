@@ -126,7 +126,7 @@ it('4 - Player can change a lane => Game updates, different roll status, differe
 
     //Get the total score for player 1
     const getById = queryByAttribute.bind(null, 'id');
-    const totalScore = getById(app.container, 'total-score'+test4Data.reducerState.lanes[2].players[0].playerName);
+    const totalScore = getById(app.container, 'total-score'+getCurrentPlayerName(test4Data));
     const lane3Player1TotalScore = totalScore.innerHTML;
 
     //Get the initial roll status information
