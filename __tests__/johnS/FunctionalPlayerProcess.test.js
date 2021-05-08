@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, fireEvent, screen } from '../../__utils__/test-utils';
 import { queryByAttribute } from '@testing-library/react';
-import { test1Data, test2Data, test3Data } from '../../__testdata__/testFunctionalData/testPlayerProcessData';
+import { test1Data, test2Data, test3Data, test4Data } from '../../__testdata__/testFunctionalData/testPlayerProcessData';
 import App from '../../src/containers/App';
 
 
@@ -221,7 +221,7 @@ it('3 - Player plays last frame => ScoreBoard updates, RollController and RollSt
 
 //#region Test the total score exists and is correctly updated
 
-    const totalScore = getById(app.container, 'total-score'+test2Data.reducerState.lanes[0].players[1].playerName);
+    const totalScore = getById(app.container, 'total-score'+test3Data.reducerState.lanes[0].players[1].playerName);
     const istotalScoreDisplayed = (totalScore) ? true : false;
     expect(istotalScoreDisplayed); 
     expect(totalScore.innerHTML).toBe("27");
@@ -230,6 +230,43 @@ it('3 - Player plays last frame => ScoreBoard updates, RollController and RollSt
 
     //Test that the correct endgame message is displayed
     expect(screen.getByText("The game has ended, the winner is User 2")).toBeInTheDocument();
+
+
+    //Return any error if there was one originally
+    console.error = originalError;
+})
+
+
+it('4 - Player can change a lane => Game updates, different roll status, different total score, different current lane text', () => 
+{
+    //Ignore warnings during rendering
+    const originalError = console.error;
+    console.error = jest.fn();
+
+
+    //Render the entire application
+    const app = render(<App />, { initialState: test4Data.reducerState });
+
+    //Get the total score for player 1
+    const getById = queryByAttribute.bind(null, 'id');
+    const totalScore = getById(app.container, 'total-score'+test4Data.reducerState.lanes[2].players[0].playerName);
+    const lane3Player1TotalScore = totalScore.innerHTML;
+
+    //Get the initial roll status information
+    const rollStatus = getById(app.container, 'roll-status');
+    const lane3RollStatus = rollStatus.innerHTML;
+
+
+    //Click the Lane 1 button to switch lanes
+    const buttonToClick = app.container.getElementsByClassName("lane")[0];
+    fireEvent.click(buttonToClick);
+
+    //Check that the roll status and player1's total score has changed
+    expect(totalScore.innerHTML).not.toBe(lane3Player1TotalScore);
+    expect(rollStatus.innerHTML).not.toBe(lane3RollStatus);
+
+    //Test that the correct lane message is displayed
+    expect(screen.getByText("Lane: Lane 1")).toBeInTheDocument();
 
 
     //Return any error if there was one originally
