@@ -74,54 +74,54 @@ const reducer = (state = initialState, action) => {
 
       //UPDATE PREVIOUS STRIKE - only check if not at first frame
       if (rLane.currentFrame > 0) {
-        console.log('CHECK UPDATE PREVIOUS STRIKE for frame');
-        console.log(rLane.currentFrame);
+        // console.log('CHECK UPDATE PREVIOUS STRIKE for frame');
+        // console.log(rLane.currentFrame);
         //if at second frame, only check frame T-1 -> idex = 0
         if (rLane.currentFrame === 1) {
-          console.log('CHECK UPDATE PREVIOUS STRIKE at frame 1');
+          // console.log('CHECK UPDATE PREVIOUS STRIKE at frame 1');
           let nextScores = rCurrentPlayerOb.strike[0].nextScores;
           if (rCurrentPlayerOb.strike[0].isStrike) {
-            console.log(`UPDATE PREVIOUS STRIKE for frame 0, player: ${rLane.currentPlayer}`);
+            // console.log(`UPDATE PREVIOUS STRIKE for frame 0, player: ${rLane.currentPlayer}`);
             nextScores.push(action.payload);
-            console.log('UPDATE PREVIOUS STRIKE: add next Scores ');
-            console.log(rCurrentPlayerOb.strike[0].nextScores);
-            console.log(nextScores);
+            // console.log('UPDATE PREVIOUS STRIKE: add next Scores ');
+            // console.log(rCurrentPlayerOb.strike[0].nextScores);
+            // console.log(nextScores);
 
             if (rCurrentPlayerOb.strike[0].nextScores.length === 2) {
               rCurrentPlayerOb.cumulativeScores[0] = 10 + nextScores[0] + nextScores[1];
-              console.log('UPDATE PREVIOUS STRIKE: add cumulated Score ');
-              console.log(rCurrentPlayerOb.cumulativeScores[0]);
+              // console.log('UPDATE PREVIOUS STRIKE: add cumulated Score ');
+              // console.log(rCurrentPlayerOb.cumulativeScores[0]);
             }
           }
         } else {
           //if from third frame (idex > 1), check frame T-1, T-2
-          console.log('UPDATE PREVIOUS STRIKE if current frame != 1');
+          // console.log('UPDATE PREVIOUS STRIKE if current frame != 1');
           if (rCurrentPlayerOb.strike[rLane.currentFrame - 2].isStrike) {
-            console.log(`UPDATE PREVIOUS STRIKE for frame ${rLane.currentFrame - 2}, player: ${rLane.currentPlayer}`);
+            // console.log(`UPDATE PREVIOUS STRIKE for frame ${rLane.currentFrame - 2}, player: ${rLane.currentPlayer}`);
             let nextScores = rCurrentPlayerOb.strike[rLane.currentFrame - 2].nextScores;
             if (nextScores.length < 2) {
               nextScores.push(action.payload);
-              console.log('UPDATE PREVIOUS STRIKE: add next Scores ');
-              console.log(nextScores);
+              // console.log('UPDATE PREVIOUS STRIKE: add next Scores ');
+              // console.log(nextScores);
               if (nextScores.length === 2) {
                 rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 2] = 10 + nextScores[0] + nextScores[1];
-                console.log('UPDATE PREVIOUS STRIKE: add cumulated Score ');
-                console.log(rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 2]);
+                // console.log('UPDATE PREVIOUS STRIKE: add cumulated Score ');
+                // console.log(rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 2]);
               }
             }
           }
 
           if (rCurrentPlayerOb.strike[rLane.currentFrame - 1].isStrike) {
-            console.log(`UPDATE PREVIOUS STRIKE for frame ${rLane.currentFrame - 1}, player: ${rLane.currentPlayer}`);
+            // console.log(`UPDATE PREVIOUS STRIKE for frame ${rLane.currentFrame - 1}, player: ${rLane.currentPlayer}`);
             let nextScores = rCurrentPlayerOb.strike[rLane.currentFrame - 1].nextScores;
             if (nextScores.length < 2) {
               nextScores.push(action.payload);
-              console.log('UPDATE PREVIOUS STRIKE: add next Scores ');
-              console.log(nextScores);
+              // console.log('UPDATE PREVIOUS STRIKE: add next Scores ');
+              // console.log(nextScores);
               if (nextScores.length === 2) {
                 rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 1] = 10 + nextScores[0] + nextScores[1];
-                console.log('UPDATE PREVIOUS STRIKE: add cumulated Score ');
-                console.log(rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 1]);
+                // console.log('UPDATE PREVIOUS STRIKE: add cumulated Score ');
+                // console.log(rCurrentPlayerOb.cumulativeScores[rLane.currentFrame - 1]);
               }
             }
           }
@@ -142,7 +142,7 @@ const reducer = (state = initialState, action) => {
 
       //IS_STRIKE: ADD NEW ROLL IF THE LAST FRAME, RECORD STRIKE ARRAY
       if (isStrike(rCurrentPlayerOb.currentRoll, action.payload)) {
-        console.log("ISSTRIKE");
+        // console.log("ISSTRIKE");
         //if it is the 10th frame, increase amount of delivery/roll times and add scores to cumulateScore for the frame
         if (rLane.currentFrame === 9) {
           rCurrentPlayerOb.maxRolls = 3;
@@ -218,7 +218,7 @@ const reducer = (state = initialState, action) => {
       }
 
       if ((rLane.currentFrame === 9) && (rLane.currentPlayer === rNumberPlayersIndex) && (rCurrentPlayerOb.currentRoll === rCurrentPlayerOb.maxRolls)) {
-        console.log("END GAME");
+        // console.log("END GAME");
         //change status of the game
         rLane.ended = true;
         // console.log(newLane.ended);
@@ -226,10 +226,10 @@ const reducer = (state = initialState, action) => {
 
       } else {
         //check if need to move to next player
-        console.log("CHECK IF MOVE TO THE NEXT PLAYER");
+        // console.log("CHECK IF MOVE TO THE NEXT PLAYER");
         if (rCurrentPlayerOb.currentRoll < rCurrentPlayerOb.maxRolls) {
           if (!isStrike(rCurrentPlayerOb.currentRoll, action.payload)) {
-            console.log("CHECK IF MOVE TO THE NEXT PLAYER: NOT A STRIKE");
+            // console.log("CHECK IF MOVE TO THE NEXT PLAYER: NOT A STRIKE");
             //update current roll and last score
             rCurrentPlayerOb.currentRoll = rCurrentPlayerOb.currentRoll + 1;
             if (isSpare(rCurrentPlayerOb.lastScore, action.payload) && (rLane.currentFrame === 9)) {
@@ -238,24 +238,24 @@ const reducer = (state = initialState, action) => {
               rCurrentPlayerOb.lastScore = action.payload;
             }
           } else {
-            console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE");
+            // console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE");
             if (rLane.currentFrame < 9) {
-              console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE AND NOT LAST FRAME");
+              // console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE AND NOT LAST FRAME");
               //Move to next player if score a strike and not the last frame
-              console.log("Move to next player");
+              // console.log("Move to next player");
               if (rLane.currentPlayer === rNumberPlayersIndex) {
-                console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE AND NOT LAST FRAME AND START NEW FRAME");
+                // console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE AND NOT LAST FRAME AND START NEW FRAME");
                 //last player in the list: update index of current player, current roll and lastScore
                 rLane.currentPlayer = 0;
                 rLane.currentFrame++;
-                console.log(`NEXT FRAME: ${rLane.currentFrame}`);
+                // console.log(`NEXT FRAME: ${rLane.currentFrame}`);
               } else {
-                console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE AND NOT LAST FRAME AND MOVE TO NEXT PLAYER SAME FRME");
+                // console.log("CHECK IF MOVE TO THE NEXT PLAYER: A STRIKE AND NOT LAST FRAME AND MOVE TO NEXT PLAYER SAME FRME");
                 rLane.currentPlayer = rLane.currentPlayer + 1;
               }
               rCurrentPlayerOb.lastScore = 0;
               rCurrentPlayerOb.currentRoll = 1;
-              console.log(`Player ${rLane.currentPlayer}, Frame: ${rLane.currentFrame}`);
+              // console.log(`Player ${rLane.currentPlayer}, Frame: ${rLane.currentFrame}`);
 
             } else {
               //Continue to roll if score a strike and the last frame
@@ -279,10 +279,10 @@ const reducer = (state = initialState, action) => {
         }
       }
 
-      console.log("FOR TESTING PURPOSE");
-      console.log(state.lanes[state.currentLane]);
-      console.log("NEW LANE: ");
-      console.log(rLanes);
+      // console.log("FOR TESTING PURPOSE");
+      // console.log(state.lanes[state.currentLane]);
+      // console.log("NEW LANE: ");
+      // console.log(rLanes);
 
       return {
         ...state,

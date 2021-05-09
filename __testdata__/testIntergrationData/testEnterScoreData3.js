@@ -1,11 +1,12 @@
-
 /**
- * @TC1: Strike not in last frame
- * @description: When the player gets a strike in normal frame, they will earn 10 pins plus a bonus of all the pins knocked down by the next two balls, 
- * no figure is entered until the next two balls are rolled
+ * @TC3: Spare not in last frame
+ * @description: When the player gets a square in normal frame, 
+ * they will earn 10 pins plus a bonus of all the pins knocked down by the next ball, no figure is entered until the next ball is rolled
  * @param: [inputState, expectedState, id_button, id_scorecell, expected_score_cell_value, id_cumulate_score, expected_value_cumulateScore, id_pre_id_cumulate_score, expected_value_pre_cumulateScore, id_total_score, expect_value_total_score]
  */
-export const testEnterScoreData1 = [
+
+
+export const testEnterScoreData3 = [
     {
         isManager: false,
         currentLane: 0,
@@ -17,13 +18,13 @@ export const testEnterScoreData1 = [
                 players: [
                     {
                         playerName: 'User1',
-                        frames: [[1, 1], [1, 1]],
-                        strike: [{ isStrike: false }, { isStrike: false }],
+                        frames: [[1, 1], [1, 1], [4]],
+                        strike: [{ isStrike: false }, { isStrike: false }, { isStrike: false }],
                         spare: [{ isSpare: false }, { isSpare: false }],
-                        cumulativeScores: [2, 2],  //Updated for first roll, -1 when spare
-                        currentRoll: 1,     //Starts at 1
+                        cumulativeScores: [2, 2, 4],  //Updated for first roll, -1 when spare
+                        currentRoll: 2,     //Starts at 1
                         maxRolls: 2,
-                        lastScore: 0,
+                        lastScore: 4,
                     },
                     {
                         playerName: 'User2',
@@ -40,7 +41,7 @@ export const testEnterScoreData1 = [
                 currentFrame: 2,
                 winner: "",
                 ended: false
-            },
+            }
         ]
     },
     {
@@ -54,9 +55,9 @@ export const testEnterScoreData1 = [
                 players: [
                     {
                         playerName: 'User1',
-                        frames: [[1, 1], [1, 1], [10]],
-                        strike: [{ isStrike: false }, { isStrike: false }, { isStrike: true, nextScores: [] }],
-                        spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }],
+                        frames: [[1, 1], [1, 1], [4, 6]],
+                        strike: [{ isStrike: false }, { isStrike: false }, { isStrike: false }],
+                        spare: [{ isSpare: false }, { isSpare: false }, { isSpare: true, nextScores: [] }],
                         cumulativeScores: [2, 2, -1],
                         currentRoll: 1,
                         maxRolls: 2,
@@ -79,13 +80,14 @@ export const testEnterScoreData1 = [
                 ended: false
             }]
     },
-    'pin10',
-    'r5User1',
-    '10',
+    'pin6',
+    'r6User1',
+    '6',
     'cumulative-score-f3User1',
     'X',
     'cumulative-score-f2User1',
     '2',
     'total-scoreUser1',
     '4'
+
 ];

@@ -4,9 +4,10 @@
  */
 import React from 'react'
 import GameController from '../../src/components/GameController/GameController';
-import { queryByAttribute } from '@testing-library/react';
+import {isScoreboardDisplay, isRollControllerDisplay, isRollStatusDisplay, isMessageDisplay } from '../../__utils__/check-display';
+
 // eslint-disable-next-line jest/no-mocks-import
-import { render, screen } from '../../__utils__/test-utils';
+import { render } from '../../__utils__/test-utils';
 import '@testing-library/jest-dom/extend-expect';
 
 //init data
@@ -45,21 +46,24 @@ let initState1 = {
 /**
  * TC1: Attempting to start a game without enough players should show an error message.
  * Input: Lane.start = false
- * Expect: Message to contact manager
+ * Expect: Message to contact manager, Components are displayed: Scoreboard, RollStatus, RollController
  */
 
-it('Renders the connected app with initialState1', () => {
+it('TC1: Renders the connected app with with number of players is < 2 as nomal player role', () => {
+    console.error = jest.fn();
     const dom = render(<GameController />, { initialState: initState1 })
+    var display = isMessageDisplay(dom);
+    var notDisplay = !isScoreboardDisplay(dom) || !isRollStatusDisplay(dom) || !isRollControllerDisplay(dom);
+    var result = display && notDisplay;
 
-    expect(screen.getByText('The game has not started yet, ask manager for help')).toBeInTheDocument();
-
+    expect(result).toBe(true);
 })
 
 
 /**
  * TC2: When the game is over, the winner and final scoreboard should be displayed..
  * Input: Lane.start = true and Lane.ended = true
- * Expect: Display scoreboard
+ * Expect: Display scoreboard, Component aren’t display: Message “The game has not started yet, ask manager for help”, RollStatus, RollController
  */
 
 //initdata for testcase 2
@@ -91,18 +95,17 @@ let initState2 = {
     currentLane: 0,
     lanes: initLanes2(),
 }
-it('Renders the connected app with initialState2', () => {
+it('TC2: Renders the connected app with game over status is true as normal player role', () => {
+    console.error = jest.fn();
     const dom = render(<GameController />, { initialState: initState2 })
 
-    const getById = queryByAttribute.bind(null, 'id');
-    //get Scoreboard component
-    const scoreboard = getById(dom.container, 'scoreboard');
-    var isScoreboardDisplay = (scoreboard) ? true : false
-
-    var result = isScoreboardDisplay ;
+    var display = isScoreboardDisplay(dom);
+    var notDisplay = !isMessageDisplay(dom) || !isRollStatusDisplay(dom) || !isRollControllerDisplay(dom);
+    var result = display && notDisplay;
 
     expect(result).toBe(true);
 })
+// * Expect: Display scoreboard, Component aren’t display: Message “The game has not started yet, ask manager for help”, RollStatus, RollController
 
 
 /**
@@ -163,23 +166,13 @@ let initState3 = {
     lanes: initLanes3(),
 }
 
-it('Renders the connected app with initialState4', () => {
+it('TC3: Renders the connected app with initialState4 with game is on as normal player role', () => {
+    console.error = jest.fn();
     const dom = render(<GameController />, { initialState: initState3 })
 
-    const getById = queryByAttribute.bind(null, 'id');
-    //get Scoreboard component
-    const scoreboard = getById(dom.container, 'scoreboard');
-    var isScoreboardDisplay = (scoreboard) ? true : false
-
-    //get RollStatus component
-    const rollStatus = getById(dom.container, 'roll-status');
-    const isRollStatusDisplay = (rollStatus)? true : false
-
-    //get RollControler component
-    const rollController = getById(dom.container, 'roll-controller');
-    var isRollControllerDisplay = (rollController) ? true : false
-
-    var result = isScoreboardDisplay && isRollControllerDisplay && isRollStatusDisplay;
-
+    var display = isScoreboardDisplay(dom) && isRollStatusDisplay(dom) && isRollControllerDisplay(dom);
+    var notDisplay = !isMessageDisplay(dom);
+    var result = display && notDisplay;
     expect(result).toBe(true);
 })
+

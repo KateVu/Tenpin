@@ -48,7 +48,8 @@ let initState2 = {
  * Output: found container with id = 'game-manager'
  */
 
-it('Renders the connected app with initialState', () => {
+it('TC1: Renders the connected app with with manager role', () => {
+  console.error = jest.fn();
   const app = render(<App />, { initialState: initState1 })
 
   const getById = queryByAttribute.bind(null, 'id');
@@ -70,7 +71,8 @@ it('Renders the connected app with initialState', () => {
  * Output: found container with id = 'game'
  */
 // eslint-disable-next-line jest/no-identical-title
-it('Renders the connected app with initialState', () => {
+it('TC2: Renders the connected app with normal player role', () => {
+  console.error = jest.fn();
   const app = render(<App />, { initialState: initState2 })
 
   const getById = queryByAttribute.bind(null, 'id');

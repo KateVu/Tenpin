@@ -1,10 +1,11 @@
 /**
- * @TC0: Have an open frame
- * @description: they have up to two delivery and the score is shown correctly on the scoreboard
+ * @TC1.1: Strike not in last frame followed by open frame
+ * @description: The cumulative Scores for the strike frame should be updated
  * @param: [inputState, expectedState, id_button, id_scorecell, expected_score_cell_value, id_cumulate_score, expected_value_cumulateScore, id_pre_id_cumulate_score, expected_value_pre_cumulateScore, id_total_score, expect_value_total_score]
  */
 
-export const testEnterScoreData0 = [
+
+export const testEnterScoreData11 = [
     {
         isManager: false,
         currentLane: 0,
@@ -53,10 +54,10 @@ export const testEnterScoreData0 = [
                 players: [
                     {
                         playerName: 'User1',
-                        frames: [[1, 1], [1, 1], [10], [1, 8]],
-                        strike: [{ isStrike: false }, { isStrike: false }, { isStrike: true, nextScores: [1, 8] }, { isStrike: false }],
+                        frames: [[1, 1], [1, 1], [10], [1, 1]],
+                        strike: [{ isStrike: false }, { isStrike: false }, { isStrike: true, nextScores: [1, 1] }, { isStrike: false }],
                         spare: [{ isSpare: false }, { isSpare: false }, { isSpare: false }, { isSpare: false }],
-                        cumulativeScores: [2, 2, 19, 9],
+                        cumulativeScores: [2, 2, 12, 2],
                         currentRoll: 1,
                         maxRolls: 2,
                         lastScore: 0,
@@ -76,16 +77,15 @@ export const testEnterScoreData0 = [
                 currentFrame: 3,
                 winner: "",
                 ended: false
-            },
-        ]
+            }]
     },
-    'pin8',
-    'r8User1',
-    '8',
+    'pin1',
+    'r7User1',
+    '1',
     'cumulative-score-f4User1',
-    '9',
+    '2',
     'cumulative-score-f3User1',
-    '19',
+    '12',
     'total-scoreUser1',
-    '32'
+    '18'
 ];

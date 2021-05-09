@@ -1,4 +1,4 @@
-export const testreducerData2 = [
+export const testManagerProcessData3 = [
     {
         isManager: true,
         currentLane: 0,
@@ -9,7 +9,7 @@ export const testreducerData2 = [
                 started: true,
                 players: [
                     {
-                        playerName: 'User 1',
+                        playerName: 'User1',
                         frames: [[6, 1]],
                         strike: [{ isStrike: false }],
                         spare: [{ isSpare: false }],
@@ -19,7 +19,7 @@ export const testreducerData2 = [
                         lastScore: 0,
                     },
                     {
-                        playerName: 'User 2',
+                        playerName: 'User2',
                         frames: [],
                         strike: [],
                         spare: [],
@@ -46,7 +46,7 @@ export const testreducerData2 = [
                 started: true,
                 players: [
                     {
-                        playerName: 'User 1',
+                        playerName: 'User1',
                         frames: [],
                         strike: [],
                         spare: [],
@@ -56,7 +56,7 @@ export const testreducerData2 = [
                         lastScore: 0,
                     },
                     {
-                        playerName: 'User 2',
+                        playerName: 'User2',
                         frames: [],
                         strike: [],
                         spare: [],
@@ -72,6 +72,6 @@ export const testreducerData2 = [
                 ended: false
             },
         ]
-    }
-
+    },
+    
 ];

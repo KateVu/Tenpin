@@ -46,7 +46,7 @@ describe('reducer', () => {
   * input: currentLane = 0, call "ENTERLANE" with payload = 2
   * expect output: currentlane = 2
   */
-    it('should handle ENTERLANE', () => {
+    it('TC1: should handle ENTERLANE', () => {
         expect(
             reducer(initialState,
                 {
@@ -63,7 +63,7 @@ describe('reducer', () => {
   * input & expected: load from testreducerData2
   */
 
-    it('should handle RESTART', () => {
+    it('TC2: should handle RESTART', () => {
         var initData = testreducerData2[0];
         var expectData = testreducerData2[1];
 
@@ -82,7 +82,7 @@ describe('reducer', () => {
   * TC3: Manager should be able to reset a game. 
   * input & expected: load from testreducerData4
   */
-     it('should handle RESET', () => {
+     it('TC3: should handle RESET', () => {
         var initData = testreducerData3[0];
         var expectData = testreducerData3[1];
 
@@ -100,7 +100,7 @@ describe('reducer', () => {
   * TC4: Users should be able to start the game. 
   * input & expected: load from testreducerData4
   */
-       it('should handle START', () => {
+       it('TC4: should handle START', () => {
         var initData = testreducerData4[0];
         var expectData = testreducerData4[1];
 
@@ -118,7 +118,7 @@ describe('reducer', () => {
   * TC5: Managers should be able to add players. 
   * input & expected: load from testreducerData5
   */
-   it('should handle ADDPLAYER', () => {
+   it('TC5: should handle ADDPLAYER', () => {
     var initData = testreducerData5[0];
     var expectData = testreducerData5[1];
 
@@ -137,7 +137,7 @@ describe('reducer', () => {
   * TC6: Users should be able to switch roles between player and manager. 
   * input & expected: load from testreducerData6
   */
-   it('should handle SWITCHROLE', () => {
+   it('TC6: should handle SWITCHROLE', () => {
     var initData = testreducerData6[0];
     var expectData = testreducerData6[1];
 
@@ -155,7 +155,7 @@ describe('reducer', () => {
   * TC7: Entering a new score should progress the game. 
   * input & expected: load from testreducerData7
   */
-   it('should handle ENTERSCORE', () => {
+   it('TC7: should handle ENTERSCORE', () => {
     var initData = testreducerData7[0];
     var expectData = testreducerData7[1];
 

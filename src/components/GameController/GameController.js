@@ -13,7 +13,7 @@ class GameControler extends Component {
             return (
                 <div>
                     <h2>Lane: {this.props.lanes[this.props.currentLane].laneTitle}</h2>
-                    <div>The game has not started yet, ask manager for help</div>
+                    <div id='infor-notstartgame'>The game has not started yet, ask manager for help</div>
                 </div>
             );
         }

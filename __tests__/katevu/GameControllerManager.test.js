@@ -4,7 +4,7 @@
  */
 import React from 'react'
 import GameControllerManager from '../../src/components/GameControllerManager/GameControllerManager';
-import { queryByAttribute } from '@testing-library/react';
+import {isScoreboardDisplay, isResetButtonDisplay, isRestartButtonDisplay, isRollStatusDisplay, isAddPlayerDisplay, isListPlayerDisplay, isStartButtonDisplay } from '../../__utils__/check-display';
 // eslint-disable-next-line jest/no-mocks-import
 import { render } from '../../__utils__/test-utils';
 import '@testing-library/jest-dom/extend-expect';
@@ -92,53 +92,32 @@ let initState2 = {
 /**
  * TC1: When there are two players, display 
  * Input: (Lane.start = false And Players.length = 2)
- * Output: display Add player, List player, Start Button
+ * Output: display Add player, List player, Start Button, Component aren’t display: Scoreboard, ResetButton, RestartButton
  */
 
-it('Renders the connected app with initialState1', () => {
+it('TC1: Renders the connected app with number of players >=2 and game is not started yet as manager role', () => {
+    console.error = jest.fn();
     const dom = render(<GameControllerManager />, { initialState: initState1 })
-
-    const getById = queryByAttribute.bind(null, 'id');
-    //get AddPlayer component
-    const addPlayer = getById(dom.container, 'add-player');
-    var isAddPlayerDisplay = (addPlayer) ? true : false
-    //get ListPlayer component
-    const listPlayer = getById(dom.container, 'list-player');
-    var isListPlayerDisplay = (listPlayer) ? true : false
-    //get StartButton componet
-    const startButton = getById(dom.container, 'start-button');
-    const isStartButtonDisplay = (startButton) ? true : false
-
-    var result = isAddPlayerDisplay && isListPlayerDisplay && isStartButtonDisplay;
+    var display = isAddPlayerDisplay(dom) && isListPlayerDisplay(dom) && isStartButtonDisplay(dom);
+    var notDisplay = !isScoreboardDisplay(dom) || !isResetButtonDisplay(dom) || !isRestartButtonDisplay(dom) || !isRollStatusDisplay(dom);
+    var result = display && notDisplay;
 
     expect(result).toBe(true);
 })
-
 
 /**
  * TC2: Cannot start a game with less than 2 players 
  * Input: (Lane.start = false And Players.length = 0)
- * Display Add player, List player
+ * Display Add player, List player, Component aren’t display: StartButton, Scoreboard, ResetButton, RestartButton
  */
-it('Renders the connected app with initialState2', () => {
+it('TC2: Renders the connected app with inot enough players as manager role', () => {
+    console.error = jest.fn();
     const dom = render(<GameControllerManager />, { initialState: initState2 })
-
-    const getById = queryByAttribute.bind(null, 'id');
-    //get AddPlayer component
-    const addPlayer = getById(dom.container, 'add-player');
-    var isAddPlayerDisplay = (addPlayer) ? true : false
-    //get ListPlayer component
-    const listPlayer = getById(dom.container, 'list-player');
-    var isListPlayerDisplay = (listPlayer) ? true : false
-    //get StartButton componet
-    const startButton = getById(dom.container, 'start-button');
-    const isStartButtonDisplay = (startButton) ? true : false
-
-    var result = isAddPlayerDisplay && isListPlayerDisplay && !isStartButtonDisplay;
-
+    var display = isAddPlayerDisplay(dom) && isListPlayerDisplay(dom);
+    var notDisplay = !isStartButtonDisplay(dom) || !isScoreboardDisplay(dom) || !isResetButtonDisplay(dom) || !isRestartButtonDisplay(dom)|| !isRollStatusDisplay(dom);
+    var result = display && notDisplay;
     expect(result).toBe(true);
 })
-
 
 //initdata for testcase 3
 const initLanes3 = () => {
@@ -172,32 +151,22 @@ let initState3 = {
 /**
  * TC3: When the game is over, should display the final score and allow for restarting and resetting 
  * Input: (Lane.start = true And Lane.end = true)
- * Output: Display scoreboard, Reset button, Restart button
+ * Output: Display scoreboard, Reset button, Restart button. Component aren’t display: AddPlayer, ListPlayer, StartButton
  */
-it('Renders the connected app with initialState3', () => {
+it('TC3: Renders the connected app with game over is true as manager role', () => {
+    console.error = jest.fn();
     const dom = render(<GameControllerManager />, { initialState: initState3 })
-
-    const getById = queryByAttribute.bind(null, 'id');
-    //get Scoreboard component
-    const scoreboard = getById(dom.container, 'scoreboard');
-    var isScoreboardDisplay = (scoreboard) ? true : false
-    //get ResetButton component
-    const resetButton = getById(dom.container, 'reset-button');
-    var isResetButtonDisplay = (resetButton) ? true : false
-    //get restartButton componet
-    const restartButton = getById(dom.container, 'restart-button');
-    const isRestartButtonDisplay = (restartButton) ? true : false
-
-    var result = isScoreboardDisplay && isResetButtonDisplay && isRestartButtonDisplay;
+    var display = isScoreboardDisplay(dom) && isResetButtonDisplay(dom) && isRestartButtonDisplay(dom);
+    var notDisplay = !isAddPlayerDisplay(dom) || !isListPlayerDisplay(dom) || !isStartButtonDisplay(dom)|| !isRollStatusDisplay(dom);
+    var result = display && notDisplay;
 
     expect(result).toBe(true);
 })
 
-
 /**
  * TC4: While the game is still going, the current score should be displayed, as well as the current roll status of the players. 
  * Input: (Game.start = true And Game.end = false)
- * Output: Display scorecard, Display RollStatus, Reset button, Restart button
+ * Output: Display scorecard, Display RollStatus, Reset button, Restart button. Component aren’t display: AddPlayer, ListPlayer, StartButton
  */
 
 //initdata for testcase 4
@@ -253,31 +222,13 @@ let initState4 = {
     lanes: initLanes4(),
 }
 
-it('Renders the connected app with initialState4', () => {
+it('TC4: Renders the connected app with game is on as manager role', () => {
+    console.error = jest.fn();
     const dom = render(<GameControllerManager />, { initialState: initState4 })
 
-    const getById = queryByAttribute.bind(null, 'id');
-    //get Scoreboard component
-    const scoreboard = getById(dom.container, 'scoreboard');
-    var isScoreboardDisplay = (scoreboard) ? true : false
-
-    //get RollStatus component
-    const rollStatus = getById(dom.container, 'roll-status');
-    const isRollStatusDisplay = (rollStatus)? true : false
-
-    //get ResetButton component
-    const resetButton = getById(dom.container, 'reset-button');
-    var isResetButtonDisplay = (resetButton) ? true : false
-    //get restartButton componet
-    const restartButton = getById(dom.container, 'restart-button');
-    const isRestartButtonDisplay = (restartButton) ? true : false
-
-    var result = isScoreboardDisplay && isResetButtonDisplay && isRestartButtonDisplay && isRollStatusDisplay;
-
+    var display = isScoreboardDisplay(dom) && isResetButtonDisplay(dom) && isRestartButtonDisplay(dom) && isRollStatusDisplay(dom) ;
+    var notDisplay = !isAddPlayerDisplay(dom) || !isListPlayerDisplay(dom) || !isStartButtonDisplay(dom);
+    var result = display && notDisplay;
     expect(result).toBe(true);
 })
-
-
-
-
 

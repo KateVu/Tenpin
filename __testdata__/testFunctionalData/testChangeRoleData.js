@@ -1,4 +1,4 @@
-export const testreducerData2 = [
+export const testChangeRoleData = [
     {
         isManager: true,
         currentLane: 0,
@@ -37,7 +37,7 @@ export const testreducerData2 = [
         ]
     },
     {
-        isManager: true,
+        isManager: false,
         currentLane: 0,
         lanes: [
             {
@@ -47,10 +47,10 @@ export const testreducerData2 = [
                 players: [
                     {
                         playerName: 'User 1',
-                        frames: [],
-                        strike: [],
-                        spare: [],
-                        cumulativeScores: [],
+                        frames: [[6, 1]],
+                        strike: [{ isStrike: false }],
+                        spare: [{ isSpare: false }],
+                        cumulativeScores: [7],
                         currentRoll: 1,
                         maxRolls: 2,
                         lastScore: 0,
@@ -66,7 +66,7 @@ export const testreducerData2 = [
                         lastScore: 0,
                     },
                 ],
-                currentPlayer: 0,
+                currentPlayer: 1,
                 currentFrame: 0,
                 winner: "",
                 ended: false
